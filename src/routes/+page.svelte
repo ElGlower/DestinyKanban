@@ -34,7 +34,7 @@
   import NotificationSystem from "../lib/components/NotificationSystem.svelte";
 
   const isTauri = typeof window !== "undefined" && window.__TAURI_INTERNALS__ !== undefined;
-  let APP_VERSION = $state("1.1.0");
+  let APP_VERSION = $state("1.1.1");
 
   // Global State
   let config = $state({
@@ -420,6 +420,17 @@
               currentView = "selector";
               startProjectsSubscription(currentUser);
               await loadUserPermissions(currentUser);
+              
+              // Si el usuario es elglower (dueño/admin), sincronizar automáticamente la versión del sistema de la nube
+              if (currentUser.toLowerCase() === "elglower") {
+                try {
+                  console.log("DestinyKanban Owner: Sincronizando versión de la nube automáticamente a", APP_VERSION);
+                  await updateSystemVersion(APP_VERSION);
+                } catch (e) {
+                  console.error("Error sincronizando versión del sistema automáticamente:", e);
+                }
+              }
+
               startPresenceHeartbeat(currentUser, () => {
                 return currentProject ? currentProject.id : (currentView === "selector" ? "selector" : "");
               }, useMinecraftSkin);
@@ -516,6 +527,16 @@
         }, mcSkin);
         startProjectsSubscription(username);
         startSystemConfigSubscription();
+        
+        // Si el usuario es elglower (dueño/admin), sincronizar automáticamente la versión del sistema de la nube
+        if (username.toLowerCase() === "elglower") {
+          try {
+            console.log("DestinyKanban Owner: Sincronizando versión de la nube automáticamente a", APP_VERSION);
+            await updateSystemVersion(APP_VERSION);
+          } catch (e) {
+            console.error("Error al sincronizar automáticamente la versión en la nube:", e);
+          }
+        }
       }
       currentView = "selector";
     } catch (e) {
