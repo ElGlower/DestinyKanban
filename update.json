@@ -1,11 +1,11 @@
 {
-  "version": "1.1.2",
-  "notes": "Parche 1.1.2: Corrige la sincronización automática de versión en la base de datos usando projects/system_config y soluciona el error de permisos.",
-  "pub_date": "2026-06-07T12:00:00Z",
+  "version": "1.1.3",
+  "notes": "v1.1.3: Rediseño completo del header del tablero (glassmorphism, grid responsivo, menú desplegable ⋮). Fix: imagen de fondo personalizada ahora se guarda correctamente al cerrar el modal.",
+  "pub_date": "2026-06-07T18:56:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajFzaURDSk5DVzl2Y2ZaSEtpOHpIUDBiQzk4TFJGa0FhYmlRUi9SMnpwS1FvMUlXK0dvMEF6MW9VaHZlUnhaU2VFektudzdSSEFCSnlwZlZWNCtod2cwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODU1NDIyCWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMl94NjQtc2V0dXAubnNpcy56aXAKWEJaa2hrMmU1dnBaUVFGVG1iMnh5dWFBR1Avc0N4bE1XTUxVbnFWT1Z4MG54cDhycWtRR0x3Z3EzT0tNUkZ2YjVRRzF0ZkEyYzRFSUFMTWxjM3U4RHc9PQo=",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.2/DestinyKanban_1.1.2_x64-setup.nsis.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDaitLc1RBK0FUcHZVdVkwODlZc1JiVUdSMkx3aFFPank3QTVXVTBpRi9KYUg5VXJnTld4bm1FUXIyZmFpLzlqV0lldTNheVJvRUlEdWs1ZFU0YXhEM0E0PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODU4NTYwCWZpbGU6RGVzdGlueUthbmJhbl8xLjEuM194NjQtc2V0dXAubnNpcy56aXAKTmI0ZEx0aEMxNFE5b081Y3UxeGtPOFpQNTFSaWphK3FZcWhXZEVzaGE5cHdZM1JNNEE2YXgvemZ6dEE5aU5TRmJWdkluaXRRQUJ2S2JySjIzUlo5Qnc9PQo=",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.3/DestinyKanban_1.1.3_x64-setup.nsis.zip"
     }
   }
 }

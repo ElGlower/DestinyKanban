@@ -1,4 +1,6 @@
 <script>
+  import { compressImage } from "../utils.js";
+
   // Props
   let { 
     show = $bindable(false), 
@@ -40,31 +42,29 @@
   }
 
   // Local Background File Upload & Drag-Drop Handlers
-  function handleFileSelect(e) {
+  async function handleFileSelect(e) {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          localSettings.bgImage = event.target.result;
-        }
-      };
-      reader.readAsDataURL(file);
+      try {
+        const compressed = await compressImage(file);
+        localSettings.bgImage = compressed;
+      } catch (err) {
+        console.error("Error compressing file selection:", err);
+      }
     }
   }
 
-  function handleFileDrop(e) {
+  async function handleFileDrop(e) {
     e.preventDefault();
     e.stopPropagation();
     const file = e.dataTransfer?.files?.[0];
     if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        if (event.target?.result) {
-          localSettings.bgImage = event.target.result;
-        }
-      };
-      reader.readAsDataURL(file);
+      try {
+        const compressed = await compressImage(file);
+        localSettings.bgImage = compressed;
+      } catch (err) {
+        console.error("Error compressing file drop:", err);
+      }
     }
   }
 </script>

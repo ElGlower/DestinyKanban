@@ -23,6 +23,7 @@
     onAuthChange
   } from "../lib/firebase.js";
   import { notify } from "../lib/stores.js";
+  import { compressImage } from "../lib/utils.js";
   import WelcomeScreen from "../lib/components/WelcomeScreen.svelte";
   import ProjectSelector from "../lib/components/ProjectSelector.svelte";
   import KanbanBoard from "../lib/components/KanbanBoard.svelte";
@@ -34,7 +35,7 @@
   import NotificationSystem from "../lib/components/NotificationSystem.svelte";
 
   const isTauri = typeof window !== "undefined" && window.__TAURI_INTERNALS__ !== undefined;
-  let APP_VERSION = $state("1.1.2");
+  let APP_VERSION = $state("1.1.3");
 
   // Global State
   let config = $state({
@@ -272,7 +273,7 @@
     }
   }
 
-  function handleDrop(e) {
+  async function handleDrop(e) {
     e.preventDefault();
     isDraggingFile = false;
     dragCounter = 0;
@@ -281,13 +282,14 @@
     if (files && files.length > 0) {
       const file = files[0];
       if (file.type.startsWith("image/")) {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          if (event.target?.result) {
-            themeSettings.bgImage = event.target.result;
-          }
-        };
-        reader.readAsDataURL(file);
+        try {
+          const compressed = await compressImage(file);
+          themeSettings.bgImage = compressed;
+          notify("Imagen de fondo aplicada y optimizada.", "success");
+        } catch (err) {
+          console.error("Error al comprimir la imagen de fondo:", err);
+          notify("Error al procesar la imagen de fondo.", "error");
+        }
       }
     }
   }
@@ -340,7 +342,12 @@
       root.style.setProperty("--blur-intensity", `${themeSettings.blurIntensity ?? 12}px`);
       
       // Save settings to LocalStorage
-      localStorage.setItem("destino_theme_settings", JSON.stringify(themeSettings));
+      try {
+        localStorage.setItem("destino_theme_settings", JSON.stringify(themeSettings));
+      } catch (err) {
+        console.error("Error saving theme to localStorage:", err);
+        notify("Error al guardar tema localmente: memoria llena.", "error");
+      }
     }
   });
 

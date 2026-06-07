@@ -99,6 +99,7 @@
   // Modal State
   let showModal = $state(false);
   let editingTask = $state(null);
+  let showHeaderMenu = $state(false);
 
   // Drag and Drop State
   let draggedTaskId = $state(null);
@@ -240,58 +241,53 @@
   <!-- Header -->
   <header class="board-header">
     <div class="header-left">
-      <button class="btn btn-secondary btn-back" onclick={onBack}>
-        &lt;- VOLVER AL MENÚ
+      <button class="btn btn-secondary btn-back" onclick={onBack} title="Volver al selector de proyectos">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span class="btn-text-label">VOLVER</span>
       </button>
       <div class="project-info">
-        <span class="project-category">PROYECTO: {project.category === 'propio' ? 'PERSONAL' : 'EQUIPO DESTINYOWNER'}</span>
-        <h1 class="project-title">{project.name}</h1>
+        <span class="project-category">{project.category === 'propio' ? 'Tablero Personal' : 'Tablero de Equipo'}</span>
+        <h1 class="project-title" title={project.name}>{project.name}</h1>
       </div>
     </div>
 
-    <DiscordVoiceWidget />
+    <div class="header-center">
+      <DiscordVoiceWidget />
+    </div>
     
     <div class="header-right">
       <!-- Google Doc Integration -->
       <div class="google-doc-actions">
         {#if project.googleDocUrl}
           <a href={project.googleDocUrl} target="_blank" rel="noopener noreferrer" class="btn btn-doc" title="Abrir Google Doc en pestaña externa">
-            <svg class="svg-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 3px; display: inline-block; vertical-align: middle;">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
               <line x1="16" y1="13" x2="8" y2="13"></line>
               <line x1="16" y1="17" x2="8" y2="17"></line>
-            </svg><span class="btn-text-label">GOOGLE DOCS &nearr;</span><span class="btn-icon-label">DOCS &nearr;</span>
+            </svg>
+            <span class="btn-text-label">VER DOCS &nearr;</span>
           </a>
           <button 
             class="btn btn-doc-toggle {showEmbeddedDoc ? 'active' : ''}" 
             onclick={() => showEmbeddedDoc = !showEmbeddedDoc}
-            title={showEmbeddedDoc ? 'Ocultar panel lateral' : 'Mostrar documento aquí'}
+            title={showEmbeddedDoc ? 'Ocultar documento lateral' : 'Mostrar documento lateral'}
           >
-            <svg class="svg-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 3px; display: inline-block; vertical-align: middle;">
+            <svg class="svg-icon" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
               <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
               <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-            </svg><span class="btn-text-label">{showEmbeddedDoc ? 'OCULTAR DOC' : 'MOSTRAR DOC'}</span><span class="btn-icon-label">{showEmbeddedDoc ? 'OCULTAR' : 'VER DOC'}</span>
-          </button>
-          <button class="btn btn-doc-edit" onclick={handleLinkGoogleDoc} title="Editar enlace de Google Doc" style="display: inline-flex; align-items: center; gap: 4px;">
-            <span class="btn-text-label">[EDITAR]</span>
-            <span class="btn-icon-label" style="display: inline-flex; align-items: center;">
-              <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-              </svg>
-            </span>
-          </button>
-        {:else}
-          <button class="btn btn-doc-placeholder" onclick={handleLinkGoogleDoc}>
-            <span class="btn-text-label">+ VINCULAR GOOGLE DOC</span><span class="btn-icon-label">+ DOC</span>
+            </svg>
+            <span class="btn-text-label">{showEmbeddedDoc ? 'OCULTAR DOC' : 'MOSTRAR DOC'}</span>
           </button>
         {/if}
       </div>
 
       <!-- Real-time Presence Indicators -->
       {#if activeBoardUsers.length > 0}
-        <div class="presence-indicators">
+        <div class="presence-indicators" title="Otros miembros viendo este tablero">
           {#each activeBoardUsers as user}
             <div class="presence-avatar-wrapper">
               {#if user.useMinecraftSkin}
@@ -311,7 +307,7 @@
         </div>
       {/if}
 
-      <!-- User Profile (Minecraft or initial-based avatar) -->
+      <!-- User Profile Card -->
       <div class="user-profile-card neumorphic-well">
         {#if useMinecraftSkin}
           <img 
@@ -327,34 +323,60 @@
         <span class="user-name">{currentUser.toUpperCase()}</span>
       </div>
 
-      <button class="btn btn-theme" onclick={onOpenTheme} title="Personalizar Interfaz">
-        <span class="theme-icon">
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
-            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 14.7255 3.09032 17.1962 4.85857 19C5.02106 19.1652 5.09353 19.3976 5.05193 19.624L4.81818 20.9C4.74242 21.3129 5.09633 21.6881 5.50901 21.6149L6.82857 21.3813C7.05041 21.342 7.27643 21.4116 7.43954 21.5714C8.7562 22.8624 10.4571 23 12 22Z"></path>
-            <circle cx="7.5" cy="10.5" r="1.2" fill="currentColor"></circle>
-            <circle cx="11.5" cy="7.5" r="1.2" fill="currentColor"></circle>
-            <circle cx="16.5" cy="9.5" r="1.2" fill="currentColor"></circle>
-            <circle cx="15.5" cy="14.5" r="1.2" fill="currentColor"></circle>
-          </svg>
-        </span> <span class="btn-text-label">PERSONALIZAR</span>
-      </button>
-
-      <button class="btn btn-danger btn-delete-board" onclick={() => onTriggerDelete(project)} title="Eliminar este tablero y todas sus tareas permanentemente" style="display: inline-flex; align-items: center; gap: 4px;">
-        <span class="btn-text-label">[BORRAR TABLERO]</span>
-        <span class="btn-icon-label" style="display: inline-flex; align-items: center;">
-          <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="3 6 5 6 21 6"></polyline>
-            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-          </svg>
-        </span>
-      </button>
-
-      <button class="btn btn-primary btn-add-global" onclick={() => openNewTaskModal()}>
-        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 3px; display: inline-block; vertical-align: middle;">
+      <!-- Add Task Button -->
+      <button class="btn btn-primary btn-add-global" onclick={() => openNewTaskModal()} title="Crear una nueva tarea en este tablero">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
           <line x1="12" y1="5" x2="12" y2="19"></line>
           <line x1="5" y1="12" x2="19" y2="12"></line>
-        </svg><span class="btn-text-label">NUEVA TAREA</span><span class="btn-icon-label">NUEVA</span>
+        </svg>
+        <span class="btn-text-label">NUEVA TAREA</span>
       </button>
+
+      <!-- Dropdown Menu Actions Button -->
+      <div class="header-menu-container">
+        <button class="btn btn-secondary btn-menu" onclick={() => showHeaderMenu = !showHeaderMenu} title="Más acciones de tablero" aria-expanded={showHeaderMenu}>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
+            <circle cx="12" cy="12" r="1.5"></circle>
+            <circle cx="12" cy="5" r="1.5"></circle>
+            <circle cx="12" cy="19" r="1.5"></circle>
+          </svg>
+        </button>
+        {#if showHeaderMenu}
+          <!-- svelte-ignore a11y_click_events_have_key_events -->
+          <!-- svelte-ignore a11y_no_static_element_interactions -->
+          <div class="menu-dropdown-backdrop" onclick={() => showHeaderMenu = false}></div>
+          <div class="menu-dropdown neumorphic-panel">
+            <button class="menu-item" onclick={() => { showHeaderMenu = false; onOpenTheme(); }}>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
+                <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 14.7255 3.09032 17.1962 4.85857 19C5.02106 19.1652 5.09353 19.3976 5.05193 19.624L4.81818 20.9C4.74242 21.3129 5.09633 21.6881 5.50901 21.6149L6.82857 21.3813C7.05041 21.342 7.27643 21.4116 7.43954 21.5714C8.7562 22.8624 10.4571 23 12 22Z"></path>
+                <circle cx="7.5" cy="10.5" r="1" fill="currentColor"></circle>
+                <circle cx="11.5" cy="7.5" r="1" fill="currentColor"></circle>
+                <circle cx="16.5" cy="9.5" r="1" fill="currentColor"></circle>
+                <circle cx="15.5" cy="14.5" r="1" fill="currentColor"></circle>
+              </svg>
+              <span>🎨 PERSONALIZAR TEMA</span>
+            </button>
+
+            <button class="menu-item" onclick={() => { showHeaderMenu = false; handleLinkGoogleDoc(); }}>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+              <span>{project.googleDocUrl ? '🔗 EDITAR ENLACE DOC' : '🔗 VINCULAR GOOGLE DOC'}</span>
+            </button>
+
+            <div class="menu-divider"></div>
+
+            <button class="menu-item menu-item-danger" onclick={() => { showHeaderMenu = false; onTriggerDelete(project); }}>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle;">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              <span>⚠️ ELIMINAR TABLERO</span>
+            </button>
+          </div>
+        {/if}
+      </div>
     </div>
   </header>
 
@@ -571,133 +593,161 @@
   }
 
   .board-header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding-bottom: 18px;
-    margin-bottom: 25px;
+    gap: 16px;
+    background: linear-gradient(135deg, rgba(18,18,28,0.92) 0%, rgba(24,24,36,0.88) 100%);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    border-radius: 16px;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.06);
+    position: relative;
+    overflow: visible;
   }
 
   .header-left {
     display: flex;
     align-items: center;
-    gap: 25px;
+    gap: 16px;
+    min-width: 0;
+  }
+
+  .header-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
   }
 
   .header-right {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 8px;
+    flex-shrink: 0;
   }
 
   .project-info {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
+    min-width: 0;
   }
 
   .project-category {
-    font-size: 0.7rem;
-    color: #888888;
-    font-weight: bold;
-    letter-spacing: 1px;
+    font-size: 0.6rem;
+    color: #666;
+    font-weight: 700;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
+    white-space: nowrap;
   }
 
   .project-title {
     margin: 0;
     font-family: var(--title-font-family, 'Outfit', sans-serif);
-    font-size: 1.8rem;
+    font-size: 1.4rem;
     font-weight: 800;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px;
     color: #e0e0e0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 280px;
   }
 
   /* Google Doc buttons */
   .google-doc-actions {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
   }
 
   .btn-doc {
-    background-color: #1e1e1e;
-    border: 1px solid #282828;
-    color: #e0e0e0;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #b0b0b0;
     font-family: inherit;
-    padding: 8px 14px;
-    font-size: 0.8rem;
-    font-weight: bold;
+    padding: 7px 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
     text-decoration: none;
-    border-radius: 4px;
-    box-shadow: 
-      -2px -2px 6px rgba(255, 255, 255, 0.01),
-      2px 2px 6px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
   }
 
   .btn-doc:hover {
-    background-color: #242424;
-    border-color: #505050;
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
     color: #ffffff;
+    transform: translateY(-1px);
   }
 
   .btn-doc-edit {
     background: none;
-    border: 1px solid #282828;
-    color: #888888;
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #666;
     font-family: inherit;
-    padding: 8px 10px;
-    font-size: 0.75rem;
+    padding: 7px 10px;
+    font-size: 0.72rem;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
   }
 
   .btn-doc-edit:hover {
     color: #e0e0e0;
-    border-color: #505050;
-    background-color: #1e1e1e;
+    border-color: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.05);
   }
 
   .btn-doc-placeholder {
     background: none;
-    border: 1px dashed #333333;
-    color: #888888;
+    border: 1px dashed rgba(255,255,255,0.15);
+    color: #666;
     font-family: inherit;
-    padding: 8px 14px;
-    font-size: 0.8rem;
+    padding: 7px 12px;
+    font-size: 0.72rem;
     cursor: pointer;
-    border-radius: 4px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
   }
 
   .btn-doc-placeholder:hover {
-    border-color: #505050;
-    color: #e0e0e0;
-    background-color: #1e1e1e;
+    border-color: rgba(255,255,255,0.25);
+    color: #b0b0b0;
+    background: rgba(255,255,255,0.05);
   }
 
   /* User profile header card */
   .user-profile-card {
     display: flex;
     align-items: center;
-    gap: 10px;
-    background-color: #121212;
-    border: 1px solid #262626;
-    padding: 6px 12px;
-    border-radius: 6px;
-    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.45);
+    gap: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 6px 10px;
+    border-radius: 8px;
   }
 
   .user-avatar {
-    width: 20px;
-    height: 20px;
-    border-radius: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 4px;
     image-rendering: pixelated;
   }
 
   .user-avatar-initial {
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -707,6 +757,135 @@
     color: #11111b;
     font-family: var(--title-font-family, 'Outfit', sans-serif);
     user-select: none;
+  }
+
+  /* Header Action Buttons redesign */
+  .btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    color: #888;
+    font-size: 0.72rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
+    flex-shrink: 0;
+  }
+
+  .btn-back:hover {
+    background: rgba(255,255,255,0.08);
+    color: #e0e0e0;
+    border-color: rgba(255,255,255,0.15);
+  }
+
+  .btn-add-global {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  /* Three-dot menu button */
+  .btn-menu {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-menu:hover,
+  .btn-menu[aria-expanded="true"] {
+    background: rgba(255,255,255,0.1);
+    color: #e0e0e0;
+    border-color: rgba(255,255,255,0.18);
+  }
+
+  /* Dropdown Menu */
+  .header-menu-container {
+    position: relative;
+  }
+
+  .menu-dropdown-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+  }
+
+  .menu-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    min-width: 210px;
+    background: rgba(18,18,28,0.97);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 6px;
+    z-index: 100;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.4);
+    backdrop-filter: blur(20px);
+    animation: dropdownFadeIn 0.15s ease;
+  }
+
+  @keyframes dropdownFadeIn {
+    from { opacity: 0; transform: translateY(-6px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 12px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    color: #b0b0b0;
+    font-family: inherit;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s ease;
+  }
+
+  .menu-item:hover {
+    background: rgba(255,255,255,0.07);
+    color: #e0e0e0;
+  }
+
+  .menu-item-danger {
+    color: #f38ba8;
+  }
+
+  .menu-item-danger:hover {
+    background: rgba(243,139,168,0.1);
+    color: #f38ba8;
+  }
+
+  .menu-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin: 4px 6px;
   }
 
   .user-name {
@@ -1101,22 +1280,24 @@
   /* Responsive Adjustments */
   @media (max-width: 1200px) {
     .board-header {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      padding-bottom: 12px;
+      grid-template-columns: auto auto;
+      grid-template-rows: auto auto;
     }
-    .header-left, .header-right {
-      justify-content: center;
-      flex-wrap: wrap;
-      width: 100%;
-      gap: 12px;
+    .header-center {
+      display: none;
+    }
+    .header-right {
+      grid-column: 2;
+      grid-row: 1;
     }
     .btn-text-label {
       display: none !important;
     }
     .btn-icon-label {
       display: inline !important;
+    }
+    .project-title {
+      max-width: 180px;
     }
   }
 
@@ -1140,21 +1321,31 @@
 
   @media (max-width: 768px) {
     .board-header {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 15px;
-    }
-
-    .header-left, .header-right {
-      flex-wrap: wrap;
-      justify-content: center;
-      width: 100%;
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto;
+      padding: 10px 14px;
       gap: 10px;
     }
 
+    .header-center {
+      display: none;
+    }
+
+    .header-right {
+      gap: 6px;
+    }
+
+    .project-title {
+      font-size: 1.1rem;
+      max-width: 150px;
+    }
+
+    .google-doc-actions {
+      display: none;
+    }
+
     .project-info {
-      align-items: center;
+      align-items: flex-start;
     }
 
     .mobile-tabs-bar {
@@ -1179,7 +1370,7 @@
     }
 
     .column-body {
-      max-height: calc(100vh - 360px);
+      max-height: calc(100vh - 300px);
     }
   }
 
