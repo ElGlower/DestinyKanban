@@ -1,0 +1,6 @@
+{
+  "phases": ["Pre-prod", "Launch", "Competición", "Archivo"],
+  "roles": ["Desarrollador", "Diseñador", "Moderador", "Administrador", "Owner"],
+  "priorities": ["Baja", "Media", "Alta", "Crítica"],
+  "columns": ["Backlog", "To Do", "In Progress", "Done"]
+}
