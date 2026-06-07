@@ -1,11 +1,11 @@
 {
-  "version": "1.0.3",
-  "notes": "Removido el efecto de gradiente animado del título del tablero.",
-  "pub_date": "2026-06-07T03:14:00Z",
+  "version": "1.0.4",
+  "notes": "v1.0.4",
+  "pub_date": "2024-05-18T12:00:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajhRajM3RitTYVIyNlJqS3cycC9jWndGOE1ZTXJyMnhaaU1YRjNUc0pKM0JTWjhvR1VhOUhtYXpuZTc4OHh4V2o4K0Q3WTUxdVZ4a2FUc0RvK29pUFFzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODAyODk0CWZpbGU6RGVzdGlueUthbmJhbl8xLjAuM194NjQtc2V0dXAubnNpcy56aXAKVTErMHBqdDJVUTF6cUkzNlFvUkxoZEFxdzAyMnVMQ25kR0U2UG1DTUN1Z0p4Ty9hNWZyejlURXlaZG5TU0hSb1pUM2ZXNVYvU3hobVhSajhXS1kyQXc9PQo=",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.0.3/DestinyKanban_1.0.3_x64-setup.nsis.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDandNZEFuQlA5MTBMekxnRnZ0QW00WHNCT3NTbHZsK05odzBadi83UDlUZFdxNnpNa1dWS3BlRDc3aEFvb1BmL2NhRFZnS2srcFFVWTUvM2MzQzdZdUE0PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODQ3NjMwCWZpbGU6RGVzdGlueUthbmJhbl8xLjAuNF94NjQtc2V0dXAubnNpcy56aXAKTlpQcWhuVFpHcERuRGhGUWluS1JoZWxmZ1hWbzBDV1B2anV4K2NQazkxZDBCVHlmZjNnSGorbzNBUTVWcUJIK08yZTBQNm9Qakt5aWtGb293U05tREE9PQo=",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.0.4/DestinyKanban_1.0.4_x64-setup.nsis.zip"
     }
   }
 }

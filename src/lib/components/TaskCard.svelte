@@ -17,6 +17,12 @@
   
   <h3 class="card-title">{task.title}</h3>
   
+  {#if task.description}
+    <div class="card-description">
+      {task.description.length > 60 ? task.description.substring(0, 60) + '...' : task.description}
+    </div>
+  {/if}
+  
   {#if task.startDate || task.dueDate}
     <div class="card-dates">
       <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; vertical-align: middle; margin-right: 3px; color: #888888;">
@@ -168,6 +174,15 @@
     line-height: 1.4;
     color: #e0e0e0;
     word-break: break-word;
+  }
+
+  .card-description {
+    margin: 0;
+    font-size: 0.75rem;
+    color: #999999;
+    line-height: 1.3;
+    word-break: break-word;
+    font-style: italic;
   }
 
   .card-footer {

@@ -552,6 +552,7 @@
     {editingTask}
     {config}
     {systemUsers}
+    {currentUser}
     onSubmit={handleSubmitTask}
     onDelete={deleteTask}
   />

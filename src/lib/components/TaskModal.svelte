@@ -5,6 +5,7 @@
     editingTask = null, 
     config, 
     systemUsers = [],
+    currentUser = "",
     onSubmit, 
     onDelete 
   } = $props();
@@ -16,6 +17,7 @@
   let formPriority = $state("");
   let formAssignedTo = $state(""); // Role
   let formAssignedUser = $state(""); // Actual user
+  let formDescription = $state("");
   let formStartDate = $state("");
   let formDueDate = $state("");
 
@@ -29,6 +31,7 @@
         formPriority = editingTask.priority;
         formAssignedTo = editingTask.assignedTo;
         formAssignedUser = editingTask.assignedUser || "";
+        formDescription = editingTask.description || "";
         formStartDate = editingTask.startDate || "";
         formDueDate = editingTask.dueDate || "";
       } else {
@@ -38,6 +41,7 @@
         formPriority = config.priorities[1] || "Media";
         formAssignedTo = config.roles[0] || "Desarrollador";
         formAssignedUser = "";
+        formDescription = "";
         formStartDate = "";
         formDueDate = "";
       }
@@ -55,6 +59,7 @@
       priority: formPriority,
       assignedTo: formAssignedTo,
       assignedUser: formAssignedUser,
+      description: formDescription,
       startDate: formStartDate,
       dueDate: formDueDate
     });
@@ -85,6 +90,17 @@
             class="form-control"
             autocomplete="off"
           />
+        </div>
+
+        <div class="form-group">
+          <label for="task-desc">DESCRIPCIÓN</label>
+          <textarea 
+            id="task-desc" 
+            bind:value={formDescription} 
+            placeholder="Añade más detalles sobre esta tarea..." 
+            class="form-control"
+            rows="3"
+          ></textarea>
         </div>
 
         <div class="form-row">
@@ -129,12 +145,19 @@
 
         <div class="form-group">
           <label for="task-user">USUARIO ASIGNADO</label>
-          <select id="task-user" bind:value={formAssignedUser} class="form-control">
-            <option value="">(Sin asignar)</option>
-            {#each systemUsers as user}
-              <option value={user}>@{user}</option>
-            {/each}
-          </select>
+          <div style="display: flex; gap: 8px;">
+            <select id="task-user" bind:value={formAssignedUser} class="form-control" style="flex: 1;">
+              <option value="">(Sin asignar)</option>
+              {#each systemUsers as user}
+                <option value={user}>@{user}</option>
+              {/each}
+            </select>
+            {#if currentUser && currentUser !== formAssignedUser}
+              <button type="button" class="btn btn-secondary" onclick={() => formAssignedUser = currentUser}>
+                A MÍ
+              </button>
+            {/if}
+          </div>
         </div>
 
         <div class="form-row">
