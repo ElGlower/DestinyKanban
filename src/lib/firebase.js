@@ -1,5 +1,10 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { 
+  getAuth, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword 
+} from "firebase/auth";
+import { 
   getFirestore, 
   collection, 
   doc, 
@@ -9,13 +14,12 @@ import {
   deleteDoc, 
   query, 
   where,
-  orderBy,
-  onSnapshot,
-  serverTimestamp
+  onSnapshot
 } from "firebase/firestore";
 
 let firebaseApp = null;
 let db = null;
+let auth = null;
 let isFirebaseEnabled = false;
 
 const DEFAULT_CONFIG = {
@@ -70,6 +74,7 @@ export function initializeFirebase(config = null) {
       firebaseApp = getApp();
     }
     db = getFirestore(firebaseApp);
+    auth = getAuth(firebaseApp);
     isFirebaseEnabled = true;
     console.log("Firebase conectado en vivo con éxito!");
     return true;
@@ -77,12 +82,13 @@ export function initializeFirebase(config = null) {
     console.error("Error inicializando Firebase:", e);
     isFirebaseEnabled = false;
     db = null;
+    auth = null;
     return false;
   }
 }
 
 export function isCloudActive() {
-  return isFirebaseEnabled && db !== null;
+  return isFirebaseEnabled && db !== null && auth !== null;
 }
 
 // --- Firestore Sync Helpers ---
@@ -196,31 +202,65 @@ export async function saveFirebaseTasks(projectId, tasks) {
 
 export async function verifyCloudUser(username, password) {
   if (!isCloudActive()) return true;
+  
+  // Create a fake email for Firebase Auth based on the username
+  const fakeEmail = `${username.toLowerCase()}@destinykanban.local`;
+  let userCredential = null;
+
+  try {
+    // 1. Try to sign in via Firebase Auth
+    userCredential = await signInWithEmailAndPassword(auth, fakeEmail, password);
+  } catch (authError) {
+    if (authError.code === "auth/user-not-found" || authError.code === "auth/invalid-credential" || authError.code === "auth/invalid-login-credentials") {
+      // 2. If user doesn't exist, we check if they exist in the Firestore 'users' collection 
+      // (to support legacy users that were pre-added but not registered in Auth yet)
+      const userDocRef = doc(db, "users", username.toLowerCase());
+      const userSnapshot = await getDoc(userDocRef);
+      
+      if (userSnapshot.exists()) {
+        const data = userSnapshot.data();
+        if (data.password && data.password !== password) {
+          // Wrong password for legacy user
+          return false;
+        }
+      }
+      
+      // 3. Register them in Firebase Auth
+      try {
+        userCredential = await createUserWithEmailAndPassword(auth, fakeEmail, password);
+      } catch (createError) {
+        if (createError.code === "auth/email-already-in-use") {
+          return false; // Wrong password
+        }
+        throw createError;
+      }
+    } else {
+      console.error("Auth error:", authError);
+      return false;
+    }
+  }
+
+  // 4. Update or create the Firestore user document
   try {
     const userDocRef = doc(db, "users", username.toLowerCase());
     const userSnapshot = await getDoc(userDocRef);
-    if (userSnapshot.exists()) {
-      const data = userSnapshot.data();
-      if (!data.password) {
-        // User was pre-added by admin. Set password on first login.
-        await setDoc(userDocRef, { password: password }, { merge: true });
-        return true;
-      }
-      return data.password === password;
-    } else {
-      // Auto-register user on first login
-      const isAdmin = username.toLowerCase() === "elglower";
+    const isAdmin = username.toLowerCase() === "elglower";
+    
+    if (!userSnapshot.exists()) {
       await setDoc(userDocRef, {
         username: username,
-        password: password,
         canCreateTeamBoards: isAdmin,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        uid: userCredential.user.uid
       });
-      return true;
+    } else {
+      // Clean up plaintext password if it exists (for security)
+      await setDoc(userDocRef, { uid: userCredential.user.uid, password: "" }, { merge: true });
     }
+    return true;
   } catch (e) {
-    console.error("Error verifying cloud user:", e);
-    throw e;
+    console.error("Error creating/updating cloud user doc:", e);
+    return true; // Return true if auth succeeded but doc creation failed due to rules
   }
 }
 
