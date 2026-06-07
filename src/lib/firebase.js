@@ -212,11 +212,14 @@ export async function verifyCloudUser(username, password) {
   
   // Create a fake email for Firebase Auth based on the username
   const fakeEmail = `${username.toLowerCase()}@destinykanban.local`;
+  // Firebase Auth requires passwords to be at least 6 characters.
+  // We pad it if it's shorter, but verify the legacy Firestore user with the original unpadded password.
+  const fbPassword = password.length >= 6 ? password : password.padEnd(6, "_");
   let userCredential = null;
 
   try {
     // 1. Try to sign in via Firebase Auth
-    userCredential = await signInWithEmailAndPassword(auth, fakeEmail, password);
+    userCredential = await signInWithEmailAndPassword(auth, fakeEmail, fbPassword);
   } catch (authError) {
     if (authError.code === "auth/user-not-found" || authError.code === "auth/invalid-credential" || authError.code === "auth/invalid-login-credentials") {
       // 2. If user doesn't exist, we check if they exist in the Firestore 'users' collection 
@@ -238,7 +241,7 @@ export async function verifyCloudUser(username, password) {
       
       // 3. Register them in Firebase Auth
       try {
-        userCredential = await createUserWithEmailAndPassword(auth, fakeEmail, password);
+        userCredential = await createUserWithEmailAndPassword(auth, fakeEmail, fbPassword);
       } catch (createError) {
         if (createError.code === "auth/email-already-in-use") {
           return false; // Wrong password

@@ -84,7 +84,9 @@
     _unsubSystemConfig = subscribeToSystemConfig((config) => {
       if (config && config.latestVersion) {
         latestAppVersion = config.latestVersion;
-        if (latestAppVersion !== APP_VERSION) {
+        // Solo mostrar actualización si la versión de la nube es mayor que la local
+        const isNewer = latestAppVersion.localeCompare(APP_VERSION, undefined, { numeric: true, sensitivity: 'base' }) > 0;
+        if (isNewer) {
           updateAvailable = true;
         } else {
           updateAvailable = false;
