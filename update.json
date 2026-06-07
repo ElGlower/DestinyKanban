@@ -1,11 +1,11 @@
 {
-  "version": "1.0.9",
-  "notes": "Parche de Prueba 1.0.9: Cambia la versión para verificar la actualización automática.",
+  "version": "1.1.0",
+  "notes": "Parche 1.1.0: Soluciona error de permisos del actualizador (updater:default capability) y mejora reporte de errores.",
   "pub_date": "2024-05-18T12:00:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajhBc3hyZHNSMzhteFVSMmlOdENtVXdXaWpSYWNrMnN0Yk95MFUrNWpsNExTTHBDcTZCbzh1SUtENmNrTzNDRjhjNGNRYzcwVFp1SDU5czRvTlR3K1FBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODUxNDY3CWZpbGU6RGVzdGlueUthbmJhbl8xLjAuOV94NjQtc2V0dXAubnNpcy56aXAKdWRrdlR6SU5oV2tlc3J1ZW50ME9heXppMWx3TjVvcVE2Z0ZLUjg3ZGl1R2dGbFA1QjZRYW1vNnpoMkVrK2JHWHhpWU9tS1dhblFucG1rbXVDTVp1Qmc9PQo=",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.0.9/DestinyKanban_1.0.9_x64-setup.nsis.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajNCM2lqUFZaZFAvZnB1d3plV0dnakFsZnY2UlRHTXh2ZTlGOFg2bEltVnpaWjNrZ0hldmpsV213WDFLRjhtbzNoWkRpUEhnQmQ5U3V6d2tyRXFmamdzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODUxNzk4CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMF94NjQtc2V0dXAubnNpcy56aXAKSzRTbFJ4QnY0S3hVVVVHdE5McWp2UWV4MytZL0ErNFVjUTMrdzNUV1lQamhrOE5CV2hVekFQaXVXZnducjRIVVpoV00zSjdkT3B5TTA0c2RsRUNxQ3c9PQo=",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.0/DestinyKanban_1.1.0_x64-setup.nsis.zip"
     }
   }
 }

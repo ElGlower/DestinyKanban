@@ -34,7 +34,7 @@
   import NotificationSystem from "../lib/components/NotificationSystem.svelte";
 
   const isTauri = typeof window !== "undefined" && window.__TAURI_INTERNALS__ !== undefined;
-  let APP_VERSION = $state("1.0.9");
+  let APP_VERSION = $state("1.1.0");
 
   // Global State
   let config = $state({
@@ -126,8 +126,8 @@
         setTimeout(() => { isUpdating = false; }, 3000);
       }
     } catch (e) {
-      updateStatus = `Error: ${e.message}`;
-      console.error(e);
+      updateStatus = `Error: ${e?.message || e || "Error desconocido"}`;
+      console.error("Error al actualizar:", e);
       setTimeout(() => { isUpdating = false; }, 5000);
     }
   }
