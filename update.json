@@ -1,11 +1,11 @@
 {
-  "version": "1.0.7",
-  "notes": "Parche 1.0.7: Soluciona error al publicar actualizaciones y permite contraseñas de menos de 6 caracteres",
+  "version": "1.0.8",
+  "notes": "Parche 1.0.8: Arregla bucle infinito de actualización provocado por la versión harcodeada.",
   "pub_date": "2024-05-18T12:00:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDancrVjVCczFGWGZSdkM0azMyTjBVeHhDbEttM05yVTZKUzdYYkFqU0tCNzU0ZUZzKzlNbFZEVDd1SkY5a2RmbzV0M21tQ3ZUOE9iL0d2cmJ4MXJpVlFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODUwMzU3CWZpbGU6RGVzdGlueUthbmJhbl8xLjAuN194NjQtc2V0dXAubnNpcy56aXAKOFNTdnNTck1PSmQ4Z2xLKzAzTHNrTHRYTXN6dWZuUWZ6U3FTYmZGYUovSVJEcTgxZjdYam9Wd1FreDNneXkvNFhVZThSU2xHSzZjL2J4SGFZV0hLQ1E9PQo=",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.0.7/DestinyKanban_1.0.7_x64-setup.nsis.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDandTakZJV2doN2I3T2d4NVliR2tETGczWWg1NXEzOFB0NTFYYnU4OXE5T3VkTVNOcUlQaDFDRTE0bzl3V2pmaG4vWE1idzEyL2prd3ZFcEVQc2E5UEFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODUxMDYzCWZpbGU6RGVzdGlueUthbmJhbl8xLjAuOF94NjQtc2V0dXAubnNpcy56aXAKb2pzVVlWM2ZnTHJEU0l1M0tLeE5ZaVNoRmw3NllIQW0zajBtUE5rVnNYdHVxaGpvQjBhOHk4ZFBEcks4cFlZdlBjWHU4NStSOG1CKyt2MHppTU9yRHc9PQo=",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.0.8/DestinyKanban_1.0.8_x64-setup.nsis.zip"
     }
   }
 }

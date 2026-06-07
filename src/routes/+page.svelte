@@ -2,6 +2,7 @@
   import { invoke } from "@tauri-apps/api/core";
   import { check } from "@tauri-apps/plugin-updater";
   import { relaunch } from "@tauri-apps/plugin-process";
+  import { getVersion } from "@tauri-apps/api/app";
   import { onMount, onDestroy } from "svelte";
   import { 
     isCloudActive, 
@@ -33,7 +34,7 @@
   import NotificationSystem from "../lib/components/NotificationSystem.svelte";
 
   const isTauri = typeof window !== "undefined" && window.__TAURI_INTERNALS__ !== undefined;
-  const APP_VERSION = "1.0.3";
+  let APP_VERSION = $state("1.0.8");
 
   // Global State
   let config = $state({
@@ -360,6 +361,11 @@
     }
 
     if (isTauri) {
+      try {
+        APP_VERSION = await getVersion();
+      } catch (e) {
+        console.error("No se pudo obtener la versión de Tauri", e);
+      }
       try {
         const update = await check();
         if (update) {
