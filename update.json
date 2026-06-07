@@ -1,11 +1,11 @@
 {
-  "version": "1.0.5",
-  "notes": "Parche de Seguridad Definitivo - Firebase Authentication Integration",
+  "version": "1.0.6",
+  "notes": "Corrección de inicio de sesión automático y permisos de lectura",
   "pub_date": "2024-05-18T12:00:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajhNbTJFRUJXUllrNVFCNWJRRHo4SjV3YlBJMTJQcGY3a2M5aHN4c0ZuSzJ6cEpHM1RHTlZHbjRmZmtvYU42THVKSURmbUhwa3Npc3JOdzRIem5sckFRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODQ4MjEyCWZpbGU6RGVzdGlueUthbmJhbl8xLjAuNV94NjQtc2V0dXAubnNpcy56aXAKMG9EdVpNL0ZQcUY0bnRtRXFxajhmbGdKOUR1enNLWnIwNC9MMmtGVTRpVkM4cUZkUUVLVWxtOGxiLy9QU3FzQXFHQzVQaXRuLzdCZ2RrSWxhSmFkRHc9PQo=",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.0.5/DestinyKanban_1.0.5_x64-setup.nsis.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajJxUWltRkwrZXA5OURQM0htVUgySVg4OUFJbGo5dndCeHNxRlh0NlQ2Um9qMTRITjBWaTNjYmUxTUErL2I1SElSWkI5dTVMK2xFSWRDM1ovRStzOGd3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODQ5NDUwCWZpbGU6RGVzdGlueUthbmJhbl8xLjAuNl94NjQtc2V0dXAubnNpcy56aXAKQmp2QjNuZTZROEhXYlJHKzNFRFlCWnI5WlM0eVJpblBXMVFzaWl0TXBoemY1anFHbmREY2ROeDQ5cWk4SmFVRWI3amVEa2k1MVhWeFBpbVlha3lzQmc9PQo=",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.0.6/DestinyKanban_1.0.6_x64-setup.nsis.zip"
     }
   }
 }

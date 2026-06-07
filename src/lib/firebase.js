@@ -91,6 +91,13 @@ export function isCloudActive() {
   return isFirebaseEnabled && db !== null && auth !== null;
 }
 
+export function onAuthChange(callback) {
+  if (!isCloudActive() || !auth) return () => {};
+  import("firebase/auth").then(({ onAuthStateChanged }) => {
+    onAuthStateChanged(auth, callback);
+  });
+}
+
 // --- Firestore Sync Helpers ---
 
 // Get all projects from Firebase
@@ -214,15 +221,19 @@ export async function verifyCloudUser(username, password) {
     if (authError.code === "auth/user-not-found" || authError.code === "auth/invalid-credential" || authError.code === "auth/invalid-login-credentials") {
       // 2. If user doesn't exist, we check if they exist in the Firestore 'users' collection 
       // (to support legacy users that were pre-added but not registered in Auth yet)
-      const userDocRef = doc(db, "users", username.toLowerCase());
-      const userSnapshot = await getDoc(userDocRef);
-      
-      if (userSnapshot.exists()) {
-        const data = userSnapshot.data();
-        if (data.password && data.password !== password) {
-          // Wrong password for legacy user
-          return false;
+      try {
+        const userDocRef = doc(db, "users", username.toLowerCase());
+        const userSnapshot = await getDoc(userDocRef);
+        
+        if (userSnapshot.exists()) {
+          const data = userSnapshot.data();
+          if (data.password && data.password !== password) {
+            // Wrong password for legacy user
+            return false;
+          }
         }
+      } catch (e) {
+        // Ignorar errores de permisos aquí. Si no podemos leer, asumimos que no existe o es nuevo.
       }
       
       // 3. Register them in Firebase Auth

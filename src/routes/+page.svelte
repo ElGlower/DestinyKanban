@@ -18,7 +18,8 @@
     subscribeToTeamProjects,
     subscribeToTasks,
     subscribeToSystemConfig,
-    updateSystemVersion
+    updateSystemVersion,
+    onAuthChange
   } from "../lib/firebase.js";
   import { notify } from "../lib/stores.js";
   import WelcomeScreen from "../lib/components/WelcomeScreen.svelte";
@@ -403,8 +404,27 @@
       // Load Projects List — real-time if cloud is active
       if (isCloudActive()) {
         console.log("DestinyKanban: Firebase activo — sync en tiempo real iniciado");
-        startProjectsSubscription(currentUser);
         startSystemConfigSubscription();
+        onAuthChange(async (user) => {
+          if (user) {
+            // User is fully authenticated in Firebase Auth
+            if (currentUser) {
+              currentView = "selector";
+              startProjectsSubscription(currentUser);
+              await loadUserPermissions(currentUser);
+              startPresenceHeartbeat(currentUser, () => {
+                return currentProject ? currentProject.id : (currentView === "selector" ? "selector" : "");
+              }, useMinecraftSkin);
+            }
+          } else {
+            // Not authenticated in Firebase Auth
+            // If they skipped the login screen, force them back
+            if (currentUser) {
+              console.log("Sesión de Firebase ausente, forzando cierre de sesión local...");
+              handleLogoutWithCleanup();
+            }
+          }
+        });
       } else {
         console.log("Firebase inactivo: Cargando proyectos desde almacenamiento local...");
         if (isTauri) {
@@ -441,16 +461,11 @@
             localStorage.setItem("destino_kanban_projects", JSON.stringify(projects));
           }
         }
-      }
 
-      // If user is already logged in, redirect directly to the project selector
-      if (currentUser) {
-        currentView = "selector";
-        await loadUserPermissions(currentUser);
-        if (isCloudActive()) {
-          startPresenceHeartbeat(currentUser, () => {
-            return currentProject ? currentProject.id : (currentView === "selector" ? "selector" : "");
-          }, useMinecraftSkin);
+        // If user is already logged in (offline mode), redirect directly to the project selector
+        if (currentUser) {
+          currentView = "selector";
+          await loadUserPermissions(currentUser);
         }
       }
 
