@@ -1,11 +1,11 @@
 {
-  "version": "1.0.8",
-  "notes": "Parche 1.0.8: Arregla bucle infinito de actualización provocado por la versión harcodeada.",
+  "version": "1.0.9",
+  "notes": "Parche de Prueba 1.0.9: Cambia la versión para verificar la actualización automática.",
   "pub_date": "2024-05-18T12:00:00Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDandTakZJV2doN2I3T2d4NVliR2tETGczWWg1NXEzOFB0NTFYYnU4OXE5T3VkTVNOcUlQaDFDRTE0bzl3V2pmaG4vWE1idzEyL2prd3ZFcEVQc2E5UEFvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODUxMDYzCWZpbGU6RGVzdGlueUthbmJhbl8xLjAuOF94NjQtc2V0dXAubnNpcy56aXAKb2pzVVlWM2ZnTHJEU0l1M0tLeE5ZaVNoRmw3NllIQW0zajBtUE5rVnNYdHVxaGpvQjBhOHk4ZFBEcks4cFlZdlBjWHU4NStSOG1CKyt2MHppTU9yRHc9PQo=",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.0.8/DestinyKanban_1.0.8_x64-setup.nsis.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajhBc3hyZHNSMzhteFVSMmlOdENtVXdXaWpSYWNrMnN0Yk95MFUrNWpsNExTTHBDcTZCbzh1SUtENmNrTzNDRjhjNGNRYzcwVFp1SDU5czRvTlR3K1FBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODUxNDY3CWZpbGU6RGVzdGlueUthbmJhbl8xLjAuOV94NjQtc2V0dXAubnNpcy56aXAKdWRrdlR6SU5oV2tlc3J1ZW50ME9heXppMWx3TjVvcVE2Z0ZLUjg3ZGl1R2dGbFA1QjZRYW1vNnpoMkVrK2JHWHhpWU9tS1dhblFucG1rbXVDTVp1Qmc9PQo=",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.0.9/DestinyKanban_1.0.9_x64-setup.nsis.zip"
     }
   }
 }
