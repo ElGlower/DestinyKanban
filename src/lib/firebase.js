@@ -536,7 +536,7 @@ export function subscribeToSystemConfig(callback, onError) {
     callback({});
     return () => {};
   }
-  const docRef = doc(db, "system", "config");
+  const docRef = doc(db, "projects", "system_config");
   return onSnapshot(
     docRef,
     (snapshot) => {
@@ -558,8 +558,13 @@ export function subscribeToSystemConfig(callback, onError) {
  */
 export async function updateSystemVersion(newVersion) {
   if (!isCloudActive()) return;
-  const docRef = doc(db, "system", "config");
-  await setDoc(docRef, { latestVersion: newVersion }, { merge: true });
+  const docRef = doc(db, "projects", "system_config");
+  await setDoc(docRef, { 
+    id: "system_config",
+    owner: "elglower",
+    latestVersion: newVersion,
+    updatedAt: new Date().toISOString()
+  }, { merge: true });
 }
 
 // Initialize on import if config exists

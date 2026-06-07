@@ -34,7 +34,7 @@
   import NotificationSystem from "../lib/components/NotificationSystem.svelte";
 
   const isTauri = typeof window !== "undefined" && window.__TAURI_INTERNALS__ !== undefined;
-  let APP_VERSION = $state("1.1.1");
+  let APP_VERSION = $state("1.1.2");
 
   // Global State
   let config = $state({
@@ -141,12 +141,14 @@
     _unsubOwnProjects = subscribeToOwnProjects(
       username,
       (liveOwn) => {
+        // Excluir el documento de configuración del sistema de los proyectos visibles
+        const filteredOwn = liveOwn.filter(p => p.id !== "system_config");
         const prevIds = _ownProjects.map(p => p.id);
-        const added = liveOwn.filter(p => !prevIds.includes(p.id));
+        const added = filteredOwn.filter(p => !prevIds.includes(p.id));
         if (added.length && prevIds.length > 0) {
-          added.forEach(p => notify(`Tablero "${p.name}" añadido`, 'info'));
+          added.forEach(p => notify(`Tablero propio "${p.name}" creado`, 'success'));
         }
-        _ownProjects = liveOwn;
+        _ownProjects = filteredOwn;
         const allProjects = [..._ownProjects, ..._teamProjects];
         const uniqueProjectsMap = new Map();
         allProjects.forEach(p => uniqueProjectsMap.set(p.id, p));
@@ -428,6 +430,7 @@
                   await updateSystemVersion(APP_VERSION);
                 } catch (e) {
                   console.error("Error sincronizando versión del sistema automáticamente:", e);
+                  notify("Error al autopublicar versión: " + (e.message || e), "error");
                 }
               }
 
