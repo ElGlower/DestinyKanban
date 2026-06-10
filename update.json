@@ -1,11 +1,11 @@
 {
-  "version": "1.1.4",
-  "notes": "v1.1.4: Separación de estilos CSS en todos los componentes y corrección del guardado de temas por sesión",
-  "pub_date": "2026-06-10T07:15:33Z",
+  "version": "1.1.5",
+  "notes": "v1.1.5: Restauración de estilos de los componentes",
+  "pub_date": "2026-06-10T07:23:23Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDanllNEYvSlpTKzFxbzdZY0s1cUN6MFpVMkcrRnBLYkpYVzBxb1MzcnQ3cWFtWnQrSzRSN1ZGYzl4N2Z6cGxab0ZBemNzZzNleEw2VXQ0N2tIQk9ZU3dVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMDc1NzMzCWZpbGU6RGVzdGlueUthbmJhbl8xLjEuNF94NjQtc2V0dXAuZXhlClcybHNLTStwdUJGS2ROMHcvMUtYKzllRlIwd2xMVUlFUGJpbEFSSzlWR2RjckE3dEFWZ09Yc2JsZXc4ZFJRdHFqM0ZGbG9DS2VGUDVlU1pRS3pKdEN3PT0K",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.4/DestinyKanban_1.1.4_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajdTL0dZUGtTNmRkdFNVd3E2NThWK25Vd1I2TWNQdW5OOUtCYSs1clJueTZlSzY1MWcxUmdEVTJoWXZyYlI0anNONStMWEJoOEVaa04wcUJsaWZnaUFVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMDc2MjAzCWZpbGU6RGVzdGlueUthbmJhbl8xLjEuNV94NjQtc2V0dXAuZXhlCmMwWFBWZWtyUEl6am9mRDVQVDJ3NmlmeXRPK1ZkTEdTWmovOXB5dWlWWHljVThlb3BpK3p5NWlHOUtMMXg1aGYwSnlJd0lxRHh5T3hZeW9uSWJXc0RnPT0K",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.5/DestinyKanban_1.1.5_x64-setup.exe"
     }
   }
 }
