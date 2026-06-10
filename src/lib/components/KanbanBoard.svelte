@@ -135,53 +135,49 @@
     })
   );
 
+  import { dndzone } from 'svelte-dnd-action';
+  import { flip } from 'svelte/animate';
+
   // Grouping tasks by columns
-  let tasksByColumn = $derived(
-    config.columns.reduce((acc, col) => {
-      acc[col] = filteredTasks.filter(t => t.status === col);
-      return acc;
-    }, {})
-  );
+  let tasksByColumn = $state({});
+  let isDragging = $state(false);
+
+  $effect(() => {
+    if (!isDragging) {
+      const newCols = {};
+      config.columns.forEach(col => {
+        newCols[col] = filteredTasks.filter(t => t.status === col);
+      });
+      tasksByColumn = newCols;
+    }
+  });
 
   // Drag & Drop Handlers
-  function handleDragStart(event, taskId) {
-    draggedTaskId = taskId;
-    event.dataTransfer.effectAllowed = "move";
-    event.dataTransfer.setData("text/plain", taskId);
+  function handleDndConsider(column, e) {
+    isDragging = true;
+    tasksByColumn[column] = e.detail.items;
   }
 
-  function handleDragEnd(event) {
-    draggedTaskId = null;
-    activeDragColumn = null;
-  }
+  async function handleDndFinalize(column, e) {
+    tasksByColumn[column] = e.detail.items;
+    
+    // Update status
+    e.detail.items.forEach(item => {
+      const idx = tasks.findIndex(t => t.id === item.id);
+      if (idx !== -1) {
+        tasks[idx].status = column;
+      }
+    });
 
-  function handleDragOver(event, column) {
-    event.preventDefault();
-    activeDragColumn = column;
-  }
-
-  function handleDragLeave() {
-    activeDragColumn = null;
-  }
-
-  async function handleDrop(event, targetStatus) {
-    event.preventDefault();
-    activeDragColumn = null;
-    const taskId = event.dataTransfer.getData("text/plain") || draggedTaskId;
-    if (!taskId) return;
-
-    const currentTask = tasks.find(t => t.id === taskId);
-    if (currentTask && currentTask.status !== targetStatus) {
-      tasks = tasks.map(t => {
-        if (t.id === taskId) {
-          return { ...t, status: targetStatus };
-        }
-        return t;
-      });
-      await saveTasks();
-    }
-
-    draggedTaskId = null;
+    // Reorder tasks
+    const otherTasks = tasks.filter(t => t.status !== column);
+    const thisColumnTasks = e.detail.items.map(item => tasks.find(t => t.id === item.id)).filter(Boolean);
+    const hiddenTasksInThisColumn = tasks.filter(t => t.status === column && !e.detail.items.some(i => i.id === t.id));
+    
+    tasks = [...otherTasks, ...hiddenTasksInThisColumn, ...thisColumnTasks];
+    
+    isDragging = false;
+    await saveTasks();
   }
 
   // Modal Actions
@@ -439,10 +435,7 @@
         {#each config.columns as column}
           <!-- svelte-ignore a11y_no_static_element_interactions -->
           <div 
-            class="column {activeDragColumn === column ? 'column-dragover' : ''} {activeMobileColumn === column ? 'mobile-active' : ''}"
-            ondragover={(e) => handleDragOver(e, column)}
-            ondragleave={handleDragLeave}
-            ondrop={(e) => handleDrop(e, column)}
+            class="column {activeMobileColumn === column ? 'mobile-active' : ''}"
           >
             <div class="column-header {isOverWipLimit(column) ? 'wip-limit-exceeded' : ''}">
               <span class="column-title">{column.toUpperCase()}</span>
@@ -467,20 +460,29 @@
             {/if}
 
             <div class="column-body">
-              {#each tasksByColumn[column] || [] as task (task.id)}
-                <TaskCard 
-                  {task}
-                  {draggedTaskId}
-                  onEdit={openEditTaskModal}
-                  onDelete={deleteTask}
-                  onDragStart={handleDragStart}
-                  onDragEnd={handleDragEnd}
-                />
-              {:else}
+              <div
+                class="dnd-zone-container"
+                style="min-height: 20px; flex-grow: 1;"
+                use:dndzone={{ items: tasksByColumn[column] || [], flipDurationMs: 300, dropTargetStyle: { outline: '2px dashed rgba(255,255,255,0.3)', borderRadius: '12px' } }}
+                onconsider={(e) => handleDndConsider(column, e)}
+                onfinalize={(e) => handleDndFinalize(column, e)}
+              >
+                {#each tasksByColumn[column] || [] as task (task.id)}
+                  <div animate:flip={{ duration: 300 }}>
+                    <TaskCard 
+                      {task}
+                      onEdit={openEditTaskModal}
+                      onDelete={deleteTask}
+                    />
+                  </div>
+                {/each}
+              </div>
+
+              {#if (tasksByColumn[column] || []).length === 0}
                 <div class="column-empty">
                   <span>SIN TAREAS</span>
                 </div>
-              {/each}
+              {/if}
               
               <button class="btn-add-card" onclick={() => openNewTaskModal(column)}>
                 + AÑADIR TARJETA
