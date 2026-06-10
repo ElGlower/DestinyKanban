@@ -343,7 +343,8 @@
       
       // Save settings to LocalStorage
       try {
-        localStorage.setItem("destino_theme_settings", JSON.stringify(themeSettings));
+        const themeKey = currentUser ? `destino_theme_settings_${currentUser}` : "destino_theme_settings";
+        localStorage.setItem(themeKey, JSON.stringify(themeSettings));
       } catch (err) {
         console.error("Error saving theme to localStorage:", err);
         notify("Error al guardar tema localmente: memoria llena.", "error");
@@ -360,7 +361,8 @@
 
   onMount(async () => {
     // Load theme settings from localStorage
-    const localTheme = localStorage.getItem("destino_theme_settings");
+    const themeKey = currentUser ? `destino_theme_settings_${currentUser}` : "destino_theme_settings";
+    const localTheme = localStorage.getItem(themeKey);
     if (localTheme) {
       try {
         themeSettings = JSON.parse(localTheme);
@@ -523,6 +525,16 @@
           throw new Error("Contraseña incorrecta para este usuario.");
         }
       }
+      
+      // Load user specific theme
+      const themeKey = `destino_theme_settings_${username}`;
+      const localTheme = localStorage.getItem(themeKey);
+      if (localTheme) {
+        try { themeSettings = JSON.parse(localTheme); } catch(e) {}
+      } else {
+        themeSettings = { theme: "grayscale-dark", font: "monospace", size: "medium", cardStyle: "neumorphic", bgImage: "", blurIntensity: 12 };
+      }
+      
       currentUser = username;
       useMinecraftSkin = mcSkin;
       await loadUserPermissions(username);
@@ -560,6 +572,15 @@
       clearPresence(currentUser);
       stopPresenceHeartbeat();
     }
+    
+    // Load default theme for logged out state
+    const localTheme = localStorage.getItem("destino_theme_settings");
+    if (localTheme) {
+      try { themeSettings = JSON.parse(localTheme); } catch(e) {}
+    } else {
+      themeSettings = { theme: "grayscale-dark", font: "monospace", size: "medium", cardStyle: "neumorphic", bgImage: "", blurIntensity: 12 };
+    }
+    
     currentUser = "";
     useMinecraftSkin = false;
     canCreateTeam = false;
@@ -943,430 +964,4 @@
   <NotificationSystem />
 </main>
 
-<style>
-  :global(:root) {
-    /* Base Variables (Default Theme: Grayscale Dark) */
-    --bg-color: #121212;
-    --surface-color: #1e1e1e;
-    --text-color: #e0e0e0;
-    --accent-color: #505050;
-    --accent-text: #121212;
-    --border-color: #282828;
-    --well-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
-    --card-shadow: -4px -4px 10px rgba(255, 255, 255, 0.01), 4px 4px 10px rgba(0, 0, 0, 0.35);
-    --card-hover-shadow: -6px -6px 14px rgba(255, 255, 255, 0.015), 6px 6px 14px rgba(0, 0, 0, 0.5);
-    
-    --font-size-base: 14px;
-    --font-family: 'JetBrains Mono', monospace;
-    --title-font-family: 'Outfit', sans-serif;
-  }
-
-  :global(body) {
-    margin: 0;
-    padding: 0;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: var(--font-family);
-    font-size: var(--font-size-base);
-    transition: background-color 0.4s ease, color 0.3s ease;
-    overflow-x: hidden;
-  }
-
-  /* Themes (Upgraded with Catppuccin Mocha & Latte Palettes) */
-  :global(.theme-grayscale-dark) {
-    --bg-color: #1e1e2e;
-    --surface-color: #252538;
-    --text-color: #cdd6f4;
-    --accent-color: #b4befe;
-    --accent-text: #11111b;
-    --border-color: #313244;
-    --well-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
-    --card-shadow: -4px -4px 10px rgba(255, 255, 255, 0.01), 4px 4px 10px rgba(0, 0, 0, 0.35);
-    --card-hover-shadow: -6px -6px 14px rgba(255, 255, 255, 0.015), 6px 6px 14px rgba(0, 0, 0, 0.5);
-  }
-  :global(body.theme-grayscale-dark:not(.has-bg-image)) {
-    background: radial-gradient(circle at center, #313244 0%, #11111b 100%) !important;
-  }
-
-  :global(.theme-grayscale-light) {
-    --bg-color: #eff1f5;
-    --surface-color: #e6e9ef;
-    --text-color: #4c4f69;
-    --accent-color: #1e66f5;
-    --accent-text: #eff1f5;
-    --border-color: #ccd0da;
-    --well-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
-    --card-shadow: -6px -6px 12px rgba(0, 0, 0, 0.05), 6px 6px 12px rgba(0, 0, 0, 0.1);
-    --card-hover-shadow: -8px -8px 16px rgba(0, 0, 0, 0.08), 8px 8px 16px rgba(0, 0, 0, 0.15);
-  }
-  :global(body.theme-grayscale-light:not(.has-bg-image)) {
-    background: radial-gradient(circle at center, #ffffff 0%, #dce0e8 100%) !important;
-  }
-
-  :global(.theme-liquid-lava) {
-    --bg-color: #1a0b0b;
-    --surface-color: #2e1212;
-    --text-color: #f5e0dc;
-    --accent-color: #f38ba8;
-    --accent-text: #11111b;
-    --border-color: #eba0ac;
-    --card-shadow: -4px -4px 10px rgba(243, 139, 168, 0.05), 4px 4px 10px rgba(0, 0, 0, 0.6);
-    --card-hover-shadow: -6px -6px 14px rgba(243, 139, 168, 0.1), 6px 6px 14px rgba(0, 0, 0, 0.8);
-    --well-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.7);
-  }
-  :global(body.theme-liquid-lava:not(.has-bg-image)) {
-    background: linear-gradient(135deg, #11111b 0%, #2e1212 35%, #451a1a 70%, #11111b 100%) !important;
-    background-size: 400% 400% !important;
-    animation: liquidBg 15s ease infinite !important;
-  }
-
-  :global(.theme-liquid-water) {
-    --bg-color: #0b112c;
-    --surface-color: #111936;
-    --text-color: #cdd6f4;
-    --accent-color: #89b4fa;
-    --accent-text: #11111b;
-    --border-color: #313244;
-    --card-shadow: -4px -4px 10px rgba(137, 180, 250, 0.05), 4px 4px 10px rgba(0, 0, 0, 0.6);
-    --card-hover-shadow: -6px -6px 14px rgba(137, 180, 250, 0.1), 6px 6px 14px rgba(0, 0, 0, 0.8);
-    --well-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.7);
-  }
-  :global(body.theme-liquid-water:not(.has-bg-image)) {
-    background: linear-gradient(135deg, #11111b 0%, #111936 35%, #18224b 70%, #11111b 100%) !important;
-    background-size: 400% 400% !important;
-    animation: liquidBg 15s ease infinite !important;
-  }
-
-  :global(.theme-liquid-portal) {
-    --bg-color: #160e2e;
-    --surface-color: #211545;
-    --text-color: #f5c2e7;
-    --accent-color: #cba6f7;
-    --accent-text: #11111b;
-    --border-color: #45475a;
-    --card-shadow: -4px -4px 10px rgba(203, 166, 247, 0.05), 4px 4px 10px rgba(0, 0, 0, 0.6);
-    --card-hover-shadow: -6px -6px 14px rgba(203, 166, 247, 0.1), 6px 6px 14px rgba(0, 0, 0, 0.8);
-    --well-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.7);
-  }
-  :global(body.theme-liquid-portal:not(.has-bg-image)) {
-    background: linear-gradient(135deg, #11111b 0%, #211545 35%, #35216e 70%, #11111b 100%) !important;
-    background-size: 400% 400% !important;
-    animation: liquidBg 12s ease infinite !important;
-  }
-
-  :global(.theme-redstone) {
-    --bg-color: #11111b;
-    --surface-color: #1e1e2e;
-    --text-color: #cdd6f4;
-    --accent-color: #f38ba8;
-    --accent-text: #11111b;
-    --border-color: #f38ba8;
-    --card-shadow: 0 0 8px rgba(243, 139, 168, 0.25);
-    --card-hover-shadow: 0 0 15px rgba(243, 139, 168, 0.5);
-    --well-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.8);
-  }
-  :global(body.theme-redstone:not(.has-bg-image)) {
-    background: radial-gradient(circle at center, #2e1212 0%, #11111b 100%) !important;
-  }
-
-  :global(.theme-emerald) {
-    --bg-color: #11111b;
-    --surface-color: #1e1e2e;
-    --text-color: #cdd6f4;
-    --accent-color: #a6e3a1;
-    --accent-text: #11111b;
-    --border-color: #a6e3a1;
-    --card-shadow: -4px -4px 10px rgba(166, 227, 161, 0.05), 4px 4px 10px rgba(0, 0, 0, 0.6);
-    --card-hover-shadow: -6px -6px 14px rgba(166, 227, 161, 0.1), 6px 6px 14px rgba(0, 0, 0, 0.8);
-    --well-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.7);
-  }
-  :global(body.theme-emerald:not(.has-bg-image)) {
-    background: radial-gradient(circle at center, #0f2d19 0%, #11111b 100%) !important;
-  }
-
-  @keyframes -global-liquidBg {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* Fonts */
-  :global(.font-monospace) {
-    --font-family: 'JetBrains Mono', monospace;
-    --title-font-family: 'Outfit', sans-serif;
-  }
-
-  :global(.font-pixel) {
-    --font-family: 'VT323', monospace;
-    --title-font-family: 'VT323', monospace;
-  }
-  :global(.font-pixel) h1, :global(.font-pixel) h2, :global(.font-pixel) h3, :global(.font-pixel) button, :global(.font-pixel) span, :global(.font-pixel) input, :global(.font-pixel) select, :global(.font-pixel) label, :global(.font-pixel) a {
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  :global(.font-retro-gamer) {
-    --font-family: 'Press Start 2P', monospace;
-    --title-font-family: 'Press Start 2P', monospace;
-  }
-  :global(.font-retro-gamer) h1, :global(.font-retro-gamer) h2, :global(.font-retro-gamer) h3, :global(.font-retro-gamer) button, :global(.font-retro-gamer) span, :global(.font-retro-gamer) input, :global(.font-retro-gamer) select, :global(.font-retro-gamer) label, :global(.font-retro-gamer) a {
-    font-size: 0.82em;
-  }
-
-  :global(.font-sans) {
-    --font-family: 'Inter', sans-serif;
-    --title-font-family: 'Inter', sans-serif;
-  }
-
-  :global(.font-outfit) {
-    --font-family: 'Outfit', sans-serif;
-    --title-font-family: 'Outfit', sans-serif;
-  }
-
-  /* Sizes */
-  :global(.size-small) {
-    --font-size-base: 12px;
-  }
-  :global(.size-medium) {
-    --font-size-base: 14px;
-  }
-  :global(.size-large) {
-    --font-size-base: 16px;
-  }
-
-  /* Card Styles */
-  :global(.card-flat) {
-    --card-shadow: none !important;
-    --card-hover-shadow: none !important;
-    --well-shadow: none !important;
-  }
-  :global(.card-flat .project-card), :global(.card-flat .neumorphic-card), :global(.card-flat .neumorphic-panel), :global(.card-flat .column), :global(.card-flat .task-card), :global(.card-flat .user-profile-card) {
-    border: 1px solid var(--border-color) !important;
-    background: var(--surface-color) !important;
-    box-shadow: none !important;
-  }
-
-  :global(.card-glass) {
-    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35) !important;
-    --card-hover-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.55) !important;
-  }
-  /* Primary glassmorphic panels and containers */
-  :global(.card-glass .project-card), :global(.card-glass .neumorphic-card), :global(.card-glass .neumorphic-panel), :global(.card-glass .column), :global(.card-glass .modal), :global(.card-glass .user-profile-card), :global(.card-glass .timeline-container), :global(.card-glass .welcome-box) {
-    background: rgba(30, 30, 30, 0.45) !important;
-    backdrop-filter: blur(var(--blur-intensity, 12px)) !important;
-    -webkit-backdrop-filter: blur(var(--blur-intensity, 12px)) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  }
-  /* Nested cards (like task cards) should NOT have their own backdrop-filter to prevent browser rendering double-blur bugs */
-  :global(.card-glass .task-card) {
-    background: rgba(12, 12, 12, 0.45) !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-  }
-  :global(.card-glass.theme-grayscale-light .project-card), :global(.card-glass.theme-grayscale-light .neumorphic-card), :global(.card-glass.theme-grayscale-light .column), :global(.card-glass.theme-grayscale-light .modal), :global(.card-glass.theme-grayscale-light .user-profile-card), :global(.card-glass.theme-grayscale-light .welcome-box) {
-    background: rgba(240, 240, 240, 0.45) !important;
-    backdrop-filter: blur(var(--blur-intensity, 12px)) !important;
-    -webkit-backdrop-filter: blur(var(--blur-intensity, 12px)) !important;
-    border: 1px solid rgba(0, 0, 0, 0.08) !important;
-  }
-  :global(.card-glass.theme-grayscale-light .task-card) {
-    background: rgba(255, 255, 255, 0.5) !important;
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-    border: 1px solid rgba(0, 0, 0, 0.05) !important;
-  }
-
-  .app-container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 20px;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    box-sizing: border-box;
-    background-color: transparent;
-  }
-
-  /* Error Banner */
-  .error-banner {
-    background-color: #3a1e1e;
-    border: 1px solid #aa3333;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #ff8888;
-    font-size: 0.9rem;
-    z-index: 1000;
-  }
-
-  .btn-text {
-    background: none;
-    border: none;
-    color: #888888;
-    font-family: inherit;
-    cursor: pointer;
-    padding: 0;
-  }
-
-  .btn-text:hover {
-    color: #e0e0e0;
-  }
-
-  /* Loading State */
-  .loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    color: #888888;
-  }
-
-  /* Global Drag Drop File Overlay */
-  .drag-drop-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.85);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    pointer-events: none;
-  }
-
-  .drop-box {
-    background-color: var(--surface-color, #1e1e1e);
-    border: 3px dashed var(--accent-color, #505050);
-    padding: 40px;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    max-width: 400px;
-    width: 80%;
-    text-align: center;
-  }
-
-  .drop-title {
-    font-family: var(--title-font-family, 'Outfit', sans-serif);
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: var(--text-color, #e0e0e0);
-    letter-spacing: 1px;
-  }
-
-  .drop-sub {
-    font-size: 0.85rem;
-    color: #888888;
-  }
-
-  .update-banner {
-    background: linear-gradient(135deg, rgba(230, 57, 70, 0.1) 0%, rgba(230, 57, 70, 0.02) 100%);
-    border: 1px solid rgba(230, 57, 70, 0.3);
-    border-left: 4px solid #e63946;
-    margin: 10px 20px;
-    padding: 12px 20px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    z-index: 100;
-  }
-
-  .glow-effect {
-    box-shadow: 0 0 15px rgba(230, 57, 70, 0.2);
-    animation: pulseGlow 2s infinite;
-  }
-
-  @keyframes pulseGlow {
-    0% { box-shadow: 0 0 10px rgba(230, 57, 70, 0.1); }
-    50% { box-shadow: 0 0 20px rgba(230, 57, 70, 0.3); }
-    100% { box-shadow: 0 0 10px rgba(230, 57, 70, 0.1); }
-  }
-
-  .update-icon {
-    color: #e63946;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: rgba(230, 57, 70, 0.1);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-  }
-
-  .update-text {
-    display: flex;
-    flex-direction: column;
-    color: var(--text-color, #e0e0e0);
-  }
-
-  .update-text strong {
-    font-size: 0.95rem;
-    color: #e63946;
-    letter-spacing: 0.5px;
-  }
-
-  .update-text span {
-    font-size: 0.85rem;
-    opacity: 0.9;
-  }
-
-  .admin-update-banner {
-    background-color: rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 6px 20px;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-size: 0.8rem;
-    color: #888;
-  }
-
-  .admin-badge {
-    background-color: #89b4fa;
-    color: #111;
-    font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-  }
-
-  .status-warning {
-    color: #f39c12;
-    font-weight: bold;
-  }
-
-  .status-ok {
-    color: #4cd964;
-  }
-
-  .btn-sube-act {
-    margin-left: auto;
-    background: linear-gradient(135deg, rgba(137, 180, 250, 0.2) 0%, rgba(137, 180, 250, 0.05) 100%);
-    border: 1px solid rgba(137, 180, 250, 0.3);
-    color: #89b4fa;
-    padding: 4px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    transition: all 0.2s ease;
-  }
-
-  .btn-sube-act:hover {
-    background: rgba(137, 180, 250, 0.15);
-    box-shadow: 0 0 10px rgba(137, 180, 250, 0.2);
-  }
-</style>
+<style src="./+page.css"></style>

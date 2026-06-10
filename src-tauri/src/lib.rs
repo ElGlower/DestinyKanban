@@ -46,26 +46,8 @@ fn read_projects() -> Result<String, String> {
 
     if !projects_path.exists() {
         let default_projects = r#"[
-  {
-    "id": "destino-survival",
-    "name": "Destino Survival (Temporada 2)",
-    "category": "equipo_destinyowner"
-  },
-  {
-    "id": "destino-minijuegos",
-    "name": "Destino Minijuegos",
-    "category": "equipo_destinyowner"
-  },
-  {
-    "id": "mi-proyecto-spawn",
-    "name": "Mi Spawn Privado",
-    "category": "propio"
-  },
-  {
-    "id": "mi-proyecto-plugins",
-    "name": "Configurador de Plugins",
-    "category": "propio"
-  }
+
+  
 ]"#;
         fs::write(&projects_path, default_projects).map_err(|e| e.to_string())?;
         return Ok(default_projects.to_string());

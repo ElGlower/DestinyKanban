@@ -1,0 +1,233 @@
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 250;
+    font-family: var(--font-family, 'JetBrains Mono', monospace);
+  }
+
+  .modal {
+    background-color: #121212;
+    border: 1px solid #1e1e1e;
+    width: 90%;
+    max-width: 500px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .neumorphic-modal {
+    box-shadow: 
+      -5px -5px 15px rgba(255, 255, 255, 0.02),
+      5px 5px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+    border: 1px solid #282828;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1e1e1e;
+    padding-bottom: 12px;
+  }
+
+  .modal-header h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    letter-spacing: 0.5px;
+    color: #e0e0e0;
+    font-family: var(--title-font-family, 'Outfit', sans-serif);
+    font-weight: bold;
+  }
+
+  .modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 0;
+  }
+
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .section-desc {
+    color: #888888;
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .project-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #1a1a1a;
+    border: 1px solid #262626;
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.45);
+  }
+
+  .indicator-label {
+    font-size: 0.72rem;
+    font-weight: bold;
+    color: #505050;
+  }
+
+  .indicator-name {
+    font-size: 0.8rem;
+    color: #e0e0e0;
+    font-weight: bold;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .form-group label {
+    font-size: 0.75rem;
+    color: #888888;
+  }
+
+  .form-control {
+    background-color: #1e1e1e;
+    border: 1px solid #282828;
+    color: #e0e0e0;
+    font-family: inherit;
+    padding: 10px;
+    font-size: 0.85rem;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .form-control:focus {
+    border-color: #505050;
+  }
+
+  .error-text {
+    color: #ff8888;
+    font-size: 0.75rem;
+    margin-top: -8px;
+  }
+
+  .helper-box {
+    display: flex;
+    gap: 10px;
+    background-color: #161616;
+    border: 1px dashed #282828;
+    padding: 12px;
+    border-radius: 6px;
+  }
+
+  .helper-icon {
+    font-size: 1.1rem;
+  }
+
+  .helper-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.75rem;
+    color: #888888;
+    line-height: 1.4;
+  }
+
+  .shortcut-link {
+    color: #e0e0e0;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  .shortcut-link:hover {
+    color: #ffffff;
+  }
+
+  .modal-footer {
+    display: flex;
+    gap: 12px;
+    border-top: 1px solid #1e1e1e;
+    padding-top: 15px;
+    margin-top: 5px;
+  }
+
+  .btn {
+    background-color: #1e1e1e;
+    border: 1px solid #282828;
+    color: #e0e0e0;
+    font-family: inherit;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 
+      -2px -2px 6px rgba(255, 255, 255, 0.01),
+      2px 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn:hover {
+    background-color: #242424;
+    border-color: #404040;
+  }
+
+  .btn:active {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.4);
+  }
+
+  .btn-primary {
+    background-color: #505050;
+    border-color: #505050;
+    color: #121212;
+  }
+
+  .btn-primary:hover {
+    background-color: #e0e0e0;
+    border-color: #e0e0e0;
+  }
+
+  .btn-secondary {
+    color: #888888;
+    border-color: #282828;
+  }
+
+  .btn-danger {
+    background-color: #3a1e1e;
+    border-color: #772222;
+    color: #ff8888;
+  }
+
+  .btn-danger:hover {
+    background-color: #772222;
+    color: #ffffff;
+    border-color: #aa3333;
+  }
+
+  .btn-text {
+    background: none;
+    border: none;
+    color: #888888;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .btn-text:hover {
+    color: #e0e0e0;
+  }
