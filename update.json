@@ -1,11 +1,11 @@
 {
-  "version": "1.1.13",
-  "notes": "v1.1.13: Arreglos en la zona de drop para mayor fluidez, y función de ciclar usuarios al dar clic al avatar",
-  "pub_date": "2026-06-10T19:59:39Z",
+  "version": "1.1.14",
+  "notes": "v1.1.14: Asignación de usuarios por escrito libre y rotación segura de usuarios",
+  "pub_date": "2026-06-10T20:07:49Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDaitOMVBaNysvYXR5YXhFdU5ab3BrL0xnSGs3VDZQS1o1TGp2SmlkYndndmcwN2txZkF1ZW9rZzM2dGxZUWt5SDBOWTBRSVBTK1FQc2lob2lLYkRFb1FvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTIxNTc5CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTNfeDY0LXNldHVwLmV4ZQpQSXhWSFUxd0lhZ01kc2xFWHh3LzJxQTN5RWo5bWdvVytLZDcrWjhBemtzV0ZQdzFIbSt6aFA4blNaeHB0R2dpaWFwQm9EODltSzlFZjZGYUxYenBBdz09Cg==",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.13/DestinyKanban_1.1.13_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajYydS9LVHlKeFh0UGVOTzRJZlBxMzlheUN6TWVEajFFampSQ01MKzFES3EyOTJpMEVHdjMxL09WTVA5RzhsWHlIUjU1Y2pEbjE2QUM5WFp2L0ZQUEFNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTIyMDY5CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTRfeDY0LXNldHVwLmV4ZQpiYWlmamRPaWZCWFZOaVcwdDZqU1c0WHNCakhsUG1OMGxoQ3crUHFzNVVMSWMxVkFpM0NYaC9NWXhDS3Mwc0c0UkhwTUc0ZFJ2clprSUZLd0ppWVNBUT09Cg==",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.14/DestinyKanban_1.1.14_x64-setup.exe"
     }
   }
 }

@@ -714,7 +714,7 @@ dependencies = [
 
 [[package]]
 name = "destiny-kanban"
-version = "1.1.13"
+version = "1.1.14"
 dependencies = [
  "serde",
  "serde_json",
