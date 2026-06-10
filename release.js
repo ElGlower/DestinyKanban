@@ -79,12 +79,19 @@ try {
   process.env.TAURI_SIGNING_PRIVATE_KEY_PASSWORD = "testpassword123";
 
   console.log("🏗️ Compilando aplicación en modo de producción (Tauri build)...");
-  execSync('npx.cmd tauri build', { stdio: 'inherit', env: process.env });
+  execSync('node node_modules/@tauri-apps/cli/tauri.js build', { stdio: 'inherit', env: process.env });
 
-  // 6. Leer firma del zip generado
-  const zipPath = path.resolve(`src-tauri/target/release/bundle/nsis/DestinyKanban_${NEW_VERSION}_x64-setup.nsis.zip`);
-  const sigPath = `${zipPath}.sig`;
+  // 6. Generar/Leer firma del ejecutable generado
+  const exePath = path.resolve(`src-tauri/target/release/bundle/nsis/DestinyKanban_${NEW_VERSION}_x64-setup.exe`);
+  const sigPath = `${exePath}.sig`;
   
+  console.log("🔏 Generando firma digital manualmente...");
+  try {
+    execSync(`npx.cmd tauri signer sign "${exePath}"`, { stdio: 'inherit', env: process.env });
+  } catch (e) {
+    console.error("No se pudo generar la firma con signer:", e);
+  }
+
   if (!fs.existsSync(sigPath)) {
     throw new Error(`No se encontró el archivo de firma en: ${sigPath}`);
   }
@@ -102,7 +109,7 @@ try {
     platforms: {
       "windows-x86_64": {
         signature: signature,
-        url: `https://github.com/ElGlower/DestinyKanban/releases/download/v${NEW_VERSION}/DestinyKanban_${NEW_VERSION}_x64-setup.nsis.zip`
+        url: `https://github.com/ElGlower/DestinyKanban/releases/download/v${NEW_VERSION}/DestinyKanban_${NEW_VERSION}_x64-setup.exe`
       }
     }
   };
@@ -119,11 +126,10 @@ try {
   // 9. Crear release en GitHub y subir assets
   console.log("🏷️ Creando release en GitHub y subiendo instaladores...");
   
-  const exePath = path.resolve(`src-tauri/target/release/bundle/nsis/DestinyKanban_${NEW_VERSION}_x64-setup.exe`);
   const msiPath = path.resolve(`src-tauri/target/release/bundle/msi/DestinyKanban_${NEW_VERSION}_x64_en-US.msi`);
 
   // Ejecutamos a través de CMD
-  const ghCmd = `gh release create v${NEW_VERSION} "${exePath}" "${zipPath}" "${sigPath}" "${msiPath}" --title "Release v${NEW_VERSION}" --notes "v${NEW_VERSION}: ${CHANGELOG}"`;
+  const ghCmd = `gh release create v${NEW_VERSION} "${exePath}" "${sigPath}" "${msiPath}" --title "Release v${NEW_VERSION}" --notes "v${NEW_VERSION}: ${CHANGELOG}"`;
   execSync(`cmd /c "${ghCmd}"`, { stdio: 'inherit' });
 
   // 10. Actualizar Firestore
