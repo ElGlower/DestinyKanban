@@ -176,4 +176,264 @@
   </div>
 {/if}
 
-<style src="./ConfigModal.css"></style>
+<style>
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+  }
+
+  .modal {
+    background-color: #121212;
+    border: 1px solid #1e1e1e;
+    width: 90%;
+    max-width: 850px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Neumorphic style */
+  .neumorphic-modal {
+    box-shadow: 
+      -5px -5px 15px rgba(255, 255, 255, 0.02),
+      5px 5px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 12px;
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #1e1e1e;
+    padding-bottom: 12px;
+  }
+
+  .modal-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    color: #e0e0e0;
+  }
+
+  .section-desc {
+    color: #888888;
+    margin: 0 0 15px 0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    max-height: 60vh;
+    overflow-y: auto;
+  }
+
+  .config-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  /* Neumorphic Extruded Cards */
+  .config-card {
+    background: #1e1e1e;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 
+      -3px -3px 8px rgba(255, 255, 255, 0.01),
+      3px 3px 8px rgba(0, 0, 0, 0.3);
+    border: 1px solid #282828;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .config-card h3 {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #888888;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #222;
+    padding-bottom: 8px;
+  }
+
+  .items-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 80px;
+    align-content: flex-start;
+  }
+
+  /* Neumorphic Flat Pill */
+  .item-pill {
+    background-color: #121212;
+    border: 1px solid #282828;
+    padding: 4px 8px 4px 10px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: #e0e0e0;
+  }
+
+  .btn-delete-item {
+    background: none;
+    border: none;
+    color: #505050;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .btn-delete-item:hover {
+    color: #aa3333;
+  }
+
+  .add-item-form {
+    display: flex;
+    gap: 8px;
+  }
+
+  /* Neumorphic Sunken Input */
+  .form-control {
+    background-color: #121212;
+    border: 1px solid #222;
+    color: #e0e0e0;
+    font-family: inherit;
+    padding: 6px 10px;
+    font-size: 0.8rem;
+    outline: none;
+    flex: 1;
+    border-radius: 4px;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.4);
+  }
+
+  .form-control:focus {
+    border-color: #505050;
+  }
+
+  /* Neumorphic Button Extruded */
+  .btn {
+    background-color: #1e1e1e;
+    border: 1px solid #282828;
+    color: #e0e0e0;
+    font-family: inherit;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 
+      -2px -2px 6px rgba(255, 255, 255, 0.01),
+      2px 2px 6px rgba(0, 0, 0, 0.3);
+  }
+
+  .btn:hover {
+    background-color: #242424;
+    border-color: #404040;
+  }
+
+  .btn:active {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.4);
+  }
+
+  .btn-add {
+    padding: 6px 10px;
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    border-top: 1px solid #1e1e1e;
+    padding-top: 15px;
+  }
+
+  .btn-primary {
+    background-color: #505050;
+    border-color: #505050;
+    color: #121212;
+  }
+
+  .btn-primary:hover {
+    background-color: #e0e0e0;
+    border-color: #e0e0e0;
+  }
+
+  .btn-secondary {
+    color: #888888;
+    border-color: #282828;
+  }
+
+  .btn-text {
+    background: none;
+    border: none;
+    color: #888888;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .btn-text:hover {
+    color: #e0e0e0;
+  }
+
+  .fb-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+  @media (max-width: 600px) {
+    .fb-form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .fb-status-banner {
+    margin-top: 15px;
+    padding: 8px 12px;
+    font-size: 0.72rem;
+    font-weight: bold;
+    border-radius: 4px;
+    text-align: center;
+    border: 1px solid transparent;
+  }
+  .fb-status-banner.connected {
+    background-color: rgba(76, 217, 100, 0.1);
+    color: #4cd964;
+    border-color: rgba(76, 217, 100, 0.2);
+  }
+  .fb-status-banner.disconnected {
+    background-color: rgba(255, 255, 255, 0.03);
+    color: #888888;
+    border-color: rgba(255, 255, 255, 0.05);
+  }
+  .status-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .status-dot.connected {
+    background-color: #4cd964;
+    box-shadow: 0 0 6px #4cd964;
+  }
+  .status-dot.disconnected {
+    background-color: #888888;
+  }
+</style>

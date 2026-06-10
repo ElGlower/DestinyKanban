@@ -212,4 +212,298 @@
   {/if}
 </div>
 
-<style src="./DiscordVoiceWidget.css"></style>
+<style>
+.discord-voice-widget {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background-color: rgba(18, 18, 18, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 6px 14px;
+    border-radius: 8px;
+    backdrop-filter: blur(12px);
+    box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.45);
+    position: relative;
+  }
+
+  .discord-header {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    padding-right: 12px;
+    cursor: pointer;
+  }
+
+  .discord-brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #5865F2;
+  }
+
+  .settings-cog {
+    font-size: 0.6rem;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .discord-header:hover .settings-cog {
+    opacity: 0.6;
+  }
+
+  .guild-name {
+    font-size: 0.65rem;
+    font-weight: 900;
+    color: #888888;
+    letter-spacing: 0.5px;
+  }
+
+  .channel-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .voice-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .voice-dot.live {
+    background-color: #23a55a;
+    animation: pulse 2s infinite;
+  }
+
+  .voice-dot.demo {
+    background-color: #da373c;
+    animation: pulse 3s infinite;
+  }
+
+  .channel-name {
+    font-size: 0.68rem;
+    font-weight: bold;
+    color: #e0e0e0;
+    letter-spacing: 0.5px;
+  }
+
+  .users-list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .user-avatar-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .discord-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%; /* Rounded avatars for Discord style */
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .discord-avatar.speaking {
+    border-color: #23a55a;
+    box-shadow: 0 0 8px rgba(35, 165, 90, 0.6);
+    transform: scale(1.05);
+  }
+
+  .discord-avatar.muted {
+    opacity: 0.6;
+  }
+
+  .mic-status-badge {
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    background-color: #da373c;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    border: 1px solid #121212;
+  }
+
+  .channel-empty-txt {
+    font-size: 0.65rem;
+    color: #505050;
+    font-style: italic;
+  }
+
+  .btn-join-call {
+    background-color: #5865F2;
+    color: #ffffff;
+    border: none;
+    font-family: inherit;
+    font-size: 0.62rem;
+    font-weight: bold;
+    padding: 3px 6px;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: background-color 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .btn-join-call:hover {
+    background-color: #4752c4;
+  }
+
+  /* Settings popover styling */
+  .settings-popover {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 10px;
+    width: 280px;
+    background-color: #1a1a1a;
+    border: 1px solid #282828;
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  }
+
+  .settings-popover h4 {
+    margin: 0;
+    font-size: 0.75rem;
+    color: #e0e0e0;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  .popover-desc {
+    margin: 0;
+    font-size: 0.65rem;
+    color: #888888;
+    line-height: 1.4;
+  }
+
+  .settings-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-control {
+    background-color: #121212;
+    border: 1px solid #282828;
+    color: #e0e0e0;
+    font-family: inherit;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.4);
+  }
+
+  .form-control:focus {
+    border-color: #5865F2;
+  }
+
+  .status-msg {
+    font-size: 0.65rem;
+    color: #888888;
+  }
+
+  .popover-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 5px;
+  }
+
+  .btn-mini {
+    background: none;
+    border: 1px solid #282828;
+    color: #888888;
+    font-family: inherit;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 4px 8px;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+
+  .btn-mini:hover {
+    color: #e0e0e0;
+    border-color: #505050;
+  }
+
+  .btn-save {
+    background-color: #5865F2;
+    border-color: #5865F2;
+    color: #ffffff;
+  }
+
+  .btn-save:hover {
+    background-color: #4752c4;
+    border-color: #4752c4;
+    color: #ffffff;
+  }
+
+  .btn-unlink {
+    color: #ff8888;
+    border-color: #4a1a1a;
+  }
+
+  .btn-unlink:hover {
+    background-color: #4a1a1a;
+    color: #ffffff;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(35, 165, 90, 0.7);
+    }
+    70% {
+      transform: scale(1);
+      box-shadow: 0 0 0 5px rgba(35, 165, 90, 0);
+    }
+    100% {
+      transform: scale(0.95);
+      box-shadow: 0 0 0 0 rgba(35, 165, 90, 0);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .discord-voice-widget {
+      padding: 4px 8px;
+      gap: 8px;
+      max-width: 100%;
+      box-sizing: border-box;
+    }
+    .guild-name {
+      display: none;
+    }
+    .discord-header {
+      padding-right: 8px;
+    }
+    .discord-avatar {
+      width: 18px;
+      height: 18px;
+    }
+    .users-list {
+      gap: 4px;
+    }
+  }
+</style>
