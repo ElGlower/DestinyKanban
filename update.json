@@ -1,11 +1,11 @@
 {
-  "version": "1.1.6",
-  "notes": "v1.1.6: Discord Widget instantáneo, guardado de fondos reparado y arrastre mejorado",
-  "pub_date": "2026-06-10T07:34:27Z",
+  "version": "1.1.7",
+  "notes": "v1.1.7: Mejora de Drag & Drop (arrastrar y soltar) con animaciones fluidas y ordenamiento de tareas",
+  "pub_date": "2026-06-10T07:47:54Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDaitsd3BtQXd0VEI4QVBDZlNzRjVFMFZrakZMZDBEVGxrYzRHM0pFTytkU3g2SjZOSDh1elhTaTYrNWZXV3ZKTGtHRzFwa1RJbUpHZkpmSDVYQ3ZYakFNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMDc2ODY3CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuNl94NjQtc2V0dXAuZXhlCjJJWWJvb2VaWTJqSDdRM1k5KytDV3VkazhJT0hLY2ladnJaSitrWEtmNms3eDdoNzlqdExxMkpBSENicDZxL28veDVJVVZqVDBsL1pLVkozOTBQUEJRPT0K",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.6/DestinyKanban_1.1.6_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajZCWXNyY3NRb0I2Z3FlUTh0ZitCSUJhNktmTmN5QVNTaFJYKzVNeHl6TlVPUXArblM5RER3M3NpdTYxY29sd3VpM2hVSkJuOTg2NmVIaVZaYkFGUXdFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMDc3Njc0CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuN194NjQtc2V0dXAuZXhlCjZucTJMVk0ycEJlRHNLVkIwK1RtUTBOZkNjenY3TlhuZHNyVGZ4eFZyY2NwaVJEZTcvd3RxTitLbSs4UVhqRzdWVzVtL0w1aVlPRk95clNVL0dBb0FBPT0K",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.7/DestinyKanban_1.1.7_x64-setup.exe"
     }
   }
 }
