@@ -1,11 +1,11 @@
 {
-  "version": "1.1.11",
-  "notes": "v1.1.11: Fix: Arreglo de persistencia del fondo de pantalla y configuraciones de tema al reiniciar o actualizar",
-  "pub_date": "2026-06-10T17:41:04Z",
+  "version": "1.1.12",
+  "notes": "v1.1.12: Mejora estética UI, reemplazo de emojis por SVG, sistema de Avatares y Asignación Rápida",
+  "pub_date": "2026-06-10T19:45:29Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajFiVERGNUxody9pL0pIODEyRnVQTzFqazZtemxJREtVbVlBNFVpb2IrNjNwUllUZ3lTU1J2OHg0RFg5Q3Z5Nll4UjRMNkZyNXpvdXR3Z0w3dlJUR1FZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTEzMjY0CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTFfeDY0LXNldHVwLmV4ZQpZM3k3aUg2N21lNnpxdzVoQlJ2cW1qUGJQczRUb2N1NjY5eFhDWkRXYUJEbjZBRWVnM1Y3cjZ4YnliUmVsMmxyVFVWSWhrL2NJZW5DTEJETk9OL0xEUT09Cg==",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.11/DestinyKanban_1.1.11_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajB2a1ZWandYWUJqQldBT0VtSC9tYUJrdTYyWitmVmNuMHFYcDl5NThIcHlNVTdCQUVKKzFvRjFtelBzOUt1MGJMaGREdlQ2YThzak9uektoV1kwZEF3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTIwNzI5CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTJfeDY0LXNldHVwLmV4ZQo2VUJVMWRlcVU3Tm9STkNtNmM3TTVOTE5nL1orcUJtd216eHhGV09uUVdTQS94VHA1R3hPYXVJRU9DK1lwSkNVamdNTDFxSEVLTElEY09wQ2ZQdXNEUT09Cg==",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.12/DestinyKanban_1.1.12_x64-setup.exe"
     }
   }
 }

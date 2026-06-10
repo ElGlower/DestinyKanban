@@ -35,7 +35,7 @@
   import NotificationSystem from "../lib/components/NotificationSystem.svelte";
 
   const isTauri = typeof window !== "undefined" && window.__TAURI_INTERNALS__ !== undefined;
-  let APP_VERSION = $state("1.1.11");
+  let APP_VERSION = $state("1.1.12");
 
   // Global State
   let config = $state({
@@ -882,7 +882,7 @@
   {#if errorMessage}
     <div class="error-banner">
       <span>ERROR: {errorMessage}</span>
-      <button class="btn-text" onclick={() => errorMessage = ""}>[X]</button>
+      <button class="btn-text" onclick={() => errorMessage = ""}><svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
     </div>
   {/if}
 
