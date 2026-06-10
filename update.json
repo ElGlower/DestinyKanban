@@ -1,11 +1,11 @@
 {
-  "version": "1.1.12",
-  "notes": "v1.1.12: Mejora estética UI, reemplazo de emojis por SVG, sistema de Avatares y Asignación Rápida",
-  "pub_date": "2026-06-10T19:45:29Z",
+  "version": "1.1.13",
+  "notes": "v1.1.13: Arreglos en la zona de drop para mayor fluidez, y función de ciclar usuarios al dar clic al avatar",
+  "pub_date": "2026-06-10T19:59:39Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajB2a1ZWandYWUJqQldBT0VtSC9tYUJrdTYyWitmVmNuMHFYcDl5NThIcHlNVTdCQUVKKzFvRjFtelBzOUt1MGJMaGREdlQ2YThzak9uektoV1kwZEF3PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTIwNzI5CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTJfeDY0LXNldHVwLmV4ZQo2VUJVMWRlcVU3Tm9STkNtNmM3TTVOTE5nL1orcUJtd216eHhGV09uUVdTQS94VHA1R3hPYXVJRU9DK1lwSkNVamdNTDFxSEVLTElEY09wQ2ZQdXNEUT09Cg==",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.12/DestinyKanban_1.1.12_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDaitOMVBaNysvYXR5YXhFdU5ab3BrL0xnSGs3VDZQS1o1TGp2SmlkYndndmcwN2txZkF1ZW9rZzM2dGxZUWt5SDBOWTBRSVBTK1FQc2lob2lLYkRFb1FvPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTIxNTc5CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTNfeDY0LXNldHVwLmV4ZQpQSXhWSFUxd0lhZ01kc2xFWHh3LzJxQTN5RWo5bWdvVytLZDcrWjhBemtzV0ZQdzFIbSt6aFA4blNaeHB0R2dpaWFwQm9EODltSzlFZjZGYUxYenBBdz09Cg==",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.13/DestinyKanban_1.1.13_x64-setup.exe"
     }
   }
 }
