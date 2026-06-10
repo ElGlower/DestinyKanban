@@ -297,6 +297,7 @@
   // Sync theme variables to DOM root element
   $effect(() => {
     if (typeof window !== "undefined") {
+      const settingsStr = JSON.stringify(themeSettings);
       const root = document.documentElement;
       
       // Remove previous styling classes
@@ -344,7 +345,7 @@
       // Save settings to LocalStorage
       try {
         const themeKey = currentUser ? `destino_theme_settings_${currentUser}` : "destino_theme_settings";
-        localStorage.setItem(themeKey, JSON.stringify(themeSettings));
+        localStorage.setItem(themeKey, settingsStr);
       } catch (err) {
         console.error("Error saving theme to localStorage:", err);
         notify("Error al guardar tema localmente: memoria llena.", "error");

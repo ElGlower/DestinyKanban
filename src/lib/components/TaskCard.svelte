@@ -1,5 +1,5 @@
 <script>
-  let { task, onEdit, onDelete, onDragStart, draggedTaskId } = $props();
+  let { task, onEdit, onDelete, onDragStart, onDragEnd, draggedTaskId } = $props();
 </script>
 
 <!-- svelte-ignore a11y_no_static_element_interactions -->
@@ -7,6 +7,7 @@
   class="card task-card {draggedTaskId === task.id ? 'card-dragging' : ''}"
   draggable="true"
   ondragstart={(e) => onDragStart(e, task.id)}
+  ondragend={onDragEnd}
 >
   <div class="card-header">
     <span class="card-phase">[{task.phase}]</span>

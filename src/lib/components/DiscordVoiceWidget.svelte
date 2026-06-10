@@ -103,7 +103,7 @@
 
     interval = setInterval(() => {
       fetchDiscordData();
-    }, 15000);
+    }, 5000);
 
     speakInterval = setInterval(() => {
       if (!isLive) {

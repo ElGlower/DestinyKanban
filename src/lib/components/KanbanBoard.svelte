@@ -150,6 +150,11 @@
     event.dataTransfer.setData("text/plain", taskId);
   }
 
+  function handleDragEnd(event) {
+    draggedTaskId = null;
+    activeDragColumn = null;
+  }
+
   function handleDragOver(event, column) {
     event.preventDefault();
     activeDragColumn = column;
@@ -469,6 +474,7 @@
                   onEdit={openEditTaskModal}
                   onDelete={deleteTask}
                   onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
                 />
               {:else}
                 <div class="column-empty">
