@@ -79,7 +79,7 @@ try {
   process.env.TAURI_SIGNING_PRIVATE_KEY_PASSWORD = "testpassword123";
 
   console.log("🏗️ Compilando aplicación en modo de producción (Tauri build)...");
-  execSync('cmd /c "npx tauri build"', { stdio: 'inherit' });
+  execSync('npx.cmd tauri build', { stdio: 'inherit', env: process.env });
 
   // 6. Leer firma del zip generado
   const zipPath = path.resolve(`src-tauri/target/release/bundle/nsis/DestinyKanban_${NEW_VERSION}_x64-setup.nsis.zip`);
