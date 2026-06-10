@@ -1,11 +1,11 @@
 {
-  "version": "1.1.8",
-  "notes": "v1.1.8: Corrección al soltar las tareas (Drag and Drop)",
-  "pub_date": "2026-06-10T08:05:04Z",
+  "version": "1.1.9",
+  "notes": "v1.1.9: Fix: Doble renderizado al mover entre columnas resuelto",
+  "pub_date": "2026-06-10T17:22:29Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajRNTXlKVEhzNHhHNWJrakI2MS9OaGtwb1ZnNjJZc2xSdFZPR2hKdHBNK0F6bFp6OEI0TWlIK1lla25aY3N1UDFsTy92eEFyb21pL1k2ZHdhMXlmbGdJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMDc4NzA0CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuOF94NjQtc2V0dXAuZXhlClNycFdLN1ZUWHRRSklQRHJvQ0hqeVU2RTVYaVJoL29KYThCamJMb2pJVmx1TmFJNHpLTUFvSlVnOWxUTC9BNHJQaWYyU1RqTm5DajNNTHRnYkNCNEFnPT0K",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.8/DestinyKanban_1.1.8_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDai9vZFJCWk81Zk9IelA0UmtFUXNVZWdwZmVPZ1VPNHgwOFdFaDc3UExENENkazgzS3NkMXpjRXJGaEVNY0JmZ0t2YXNyK3llWHg2ODZybWFkMDZXWndzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTEyMTQ5CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuOV94NjQtc2V0dXAuZXhlCkZvVEllUThjSGFEOXI1RDQ5cTNPL0pFRkFLd280dlg2cThPRUVNL2tkNG91MThlMDN4dS9OVDVaYjhWbU9nUXpnOS9WM2s0dzJld3d3ZVJCVzFJTUFBPT0K",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.9/DestinyKanban_1.1.9_x64-setup.exe"
     }
   }
 }
