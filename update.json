@@ -1,11 +1,11 @@
 {
-  "version": "1.1.3",
-  "notes": "v1.1.3: Rediseño completo del header del tablero (glassmorphism, grid responsivo, menú desplegable ⋮). Fix: imagen de fondo personalizada ahora se guarda correctamente al cerrar el modal.",
-  "pub_date": "2026-06-07T18:56:00Z",
+  "version": "1.1.4",
+  "notes": "v1.1.4: Separación de estilos CSS en todos los componentes y corrección del guardado de temas por sesión",
+  "pub_date": "2026-06-10T07:15:33Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDanluRm5WL01IVGdjNjRKYkJRRm5XUjhCcWFaU1hsMUd5RUxPNHZhT3JCWnR2dExKaG9PZDUycmxGZ05DVHNMVTc2SVNhdnhXQXI1dk9ycjVPak0va0E4PQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgwODY3NDY4CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuM194NjQtc2V0dXAubnNpcy56aXAKTFVRN2N3UHhSa2ZrQ0RtUVF0cTRnQXpPTUVrSGR4WENzT0lEWXl2d0xwN3Z5YnV5ZlZRZDU0VUdYYTZ3aDBqaTVLTWtlSW5zYkhWRFBLNUo5RnJ6QUE9PQo=",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.3/DestinyKanban_1.1.3_x64-setup.nsis.zip"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDanllNEYvSlpTKzFxbzdZY0s1cUN6MFpVMkcrRnBLYkpYVzBxb1MzcnQ3cWFtWnQrSzRSN1ZGYzl4N2Z6cGxab0ZBemNzZzNleEw2VXQ0N2tIQk9ZU3dVPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMDc1NzMzCWZpbGU6RGVzdGlueUthbmJhbl8xLjEuNF94NjQtc2V0dXAuZXhlClcybHNLTStwdUJGS2ROMHcvMUtYKzllRlIwd2xMVUlFUGJpbEFSSzlWR2RjckE3dEFWZ09Yc2JsZXc4ZFJRdHFqM0ZGbG9DS2VGUDVlU1pRS3pKdEN3PT0K",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.4/DestinyKanban_1.1.4_x64-setup.exe"
     }
   }
 }

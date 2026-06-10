@@ -1,6 +1,6 @@
 [package]
 name = "destiny-kanban"
-version = "1.1.3"
+version = "1.1.4"
 description = "DestinyKanban - Sistema Kanban Colaborativo"
 authors = ["DestinyOwner"]
 edition = "2021"
