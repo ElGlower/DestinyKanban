@@ -55,7 +55,7 @@
     onSubmit({
       title: formTitle.trim(),
       status: formStatus,
-      phase: formPhase,a\\
+      phase: formPhase,
       priority: formPriority,
       assignedTo: formAssignedTo,
       assignedUser: formAssignedUser,
