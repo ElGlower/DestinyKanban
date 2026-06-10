@@ -1,11 +1,11 @@
 {
-  "version": "1.1.7",
-  "notes": "v1.1.7: Mejora de Drag & Drop (arrastrar y soltar) con animaciones fluidas y ordenamiento de tareas",
-  "pub_date": "2026-06-10T07:47:54Z",
+  "version": "1.1.8",
+  "notes": "v1.1.8: Corrección al soltar las tareas (Drag and Drop)",
+  "pub_date": "2026-06-10T08:05:04Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajZCWXNyY3NRb0I2Z3FlUTh0ZitCSUJhNktmTmN5QVNTaFJYKzVNeHl6TlVPUXArblM5RER3M3NpdTYxY29sd3VpM2hVSkJuOTg2NmVIaVZaYkFGUXdFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMDc3Njc0CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuN194NjQtc2V0dXAuZXhlCjZucTJMVk0ycEJlRHNLVkIwK1RtUTBOZkNjenY3TlhuZHNyVGZ4eFZyY2NwaVJEZTcvd3RxTitLbSs4UVhqRzdWVzVtL0w1aVlPRk95clNVL0dBb0FBPT0K",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.7/DestinyKanban_1.1.7_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajRNTXlKVEhzNHhHNWJrakI2MS9OaGtwb1ZnNjJZc2xSdFZPR2hKdHBNK0F6bFp6OEI0TWlIK1lla25aY3N1UDFsTy92eEFyb21pL1k2ZHdhMXlmbGdJPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMDc4NzA0CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuOF94NjQtc2V0dXAuZXhlClNycFdLN1ZUWHRRSklQRHJvQ0hqeVU2RTVYaVJoL29KYThCamJMb2pJVmx1TmFJNHpLTUFvSlVnOWxUTC9BNHJQaWYyU1RqTm5DajNNTHRnYkNCNEFnPT0K",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.8/DestinyKanban_1.1.8_x64-setup.exe"
     }
   }
 }
