@@ -35,7 +35,7 @@
   import NotificationSystem from "../lib/components/NotificationSystem.svelte";
 
   const isTauri = typeof window !== "undefined" && window.__TAURI_INTERNALS__ !== undefined;
-  let APP_VERSION = $state("1.1.9");
+  let APP_VERSION = $state("1.1.10");
 
   // Global State
   let config = $state({
@@ -123,8 +123,8 @@
         updateStatus = "Actualización instalada. Reiniciando...";
         await relaunch();
       } else {
-        updateStatus = "No hay actualizaciones disponibles.";
-        setTimeout(() => { isUpdating = false; }, 3000);
+        updateStatus = "La actualización se está propagando en los servidores de GitHub. Por favor, intenta de nuevo en 3 minutos.";
+        setTimeout(() => { isUpdating = false; }, 5000);
       }
     } catch (e) {
       updateStatus = `Error: ${e?.message || e || "Error desconocido"}`;

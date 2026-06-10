@@ -1,11 +1,11 @@
 {
-  "version": "1.1.9",
-  "notes": "v1.1.9: Fix: Doble renderizado al mover entre columnas resuelto",
-  "pub_date": "2026-06-10T17:22:29Z",
+  "version": "1.1.10",
+  "notes": "v1.1.10: Fix: Arreglo de cartas que desaparecían al moverlas y mensaje de actualizador",
+  "pub_date": "2026-06-10T17:29:47Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDai9vZFJCWk81Zk9IelA0UmtFUXNVZWdwZmVPZ1VPNHgwOFdFaDc3UExENENkazgzS3NkMXpjRXJGaEVNY0JmZ0t2YXNyK3llWHg2ODZybWFkMDZXWndzPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTEyMTQ5CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuOV94NjQtc2V0dXAuZXhlCkZvVEllUThjSGFEOXI1RDQ5cTNPL0pFRkFLd280dlg2cThPRUVNL2tkNG91MThlMDN4dS9OVDVaYjhWbU9nUXpnOS9WM2s0dzJld3d3ZVJCVzFJTUFBPT0K",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.9/DestinyKanban_1.1.9_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajkxM2ovdDNrRWx3YzFRb1RuM0tKVno2UGNpZTBpcGdneUJwbksvbmxMbnA4ek8rZ1RXcW9WeERMTWxXZEJ0RXg0OGQzOVhwbVFIUEM0WER3a1dhSVFNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTEyNTg3CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTBfeDY0LXNldHVwLmV4ZQozMnlJd3cweWkrUHBIZVNhT3lmb0I5UXoxUlVESEp6RnAzOXFNRjBMQ3o0ZU8zVzhyaStOS1MwU1JnWmoyVWJ5eldBZUJvWGw0M3BPMFFSVWdmV1dEQT09Cg==",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.10/DestinyKanban_1.1.10_x64-setup.exe"
     }
   }
 }
