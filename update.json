@@ -1,11 +1,11 @@
 {
-  "version": "1.1.14",
-  "notes": "v1.1.14: Asignación de usuarios por escrito libre y rotación segura de usuarios",
-  "pub_date": "2026-06-10T20:07:49Z",
+  "version": "1.1.15",
+  "notes": "v1.1.15: Soporte para asignar multiples usuarios a una sola tarea (modo colaborativo)",
+  "pub_date": "2026-06-10T20:30:33Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajYydS9LVHlKeFh0UGVOTzRJZlBxMzlheUN6TWVEajFFampSQ01MKzFES3EyOTJpMEVHdjMxL09WTVA5RzhsWHlIUjU1Y2pEbjE2QUM5WFp2L0ZQUEFNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTIyMDY5CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTRfeDY0LXNldHVwLmV4ZQpiYWlmamRPaWZCWFZOaVcwdDZqU1c0WHNCakhsUG1OMGxoQ3crUHFzNVVMSWMxVkFpM0NYaC9NWXhDS3Mwc0c0UkhwTUc0ZFJ2clprSUZLd0ppWVNBUT09Cg==",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.14/DestinyKanban_1.1.14_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajBkcjMzaXltbmorUGRjbzJuOVlzaUY0RjdJd3hDK25JUFRqY0xLelBpVXBtZFhYSUJBcVN1eXl1U3JzU1U4VFRQeTc5NWpGcmt6aWdUZi9aUEJtRncwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTIzNDMzCWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTVfeDY0LXNldHVwLmV4ZQoxTzBpbVRpTERrVnplazRpSjVKWkV1elV6THE1RmdKdFpVTFBzVWh4MUNIQ2xCNFdpb2ZHNlY1TUt1SmJuSjVha3ZHZ3QzQ0tXeVR4MjNoeE1CRXZCZz09Cg==",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.15/DestinyKanban_1.1.15_x64-setup.exe"
     }
   }
 }

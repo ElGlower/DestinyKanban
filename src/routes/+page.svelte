@@ -35,7 +35,7 @@
   import NotificationSystem from "../lib/components/NotificationSystem.svelte";
 
   const isTauri = typeof window !== "undefined" && window.__TAURI_INTERNALS__ !== undefined;
-  let APP_VERSION = $state("1.1.14");
+  let APP_VERSION = $state("1.1.15");
 
   // Global State
   let config = $state({
