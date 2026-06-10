@@ -35,7 +35,7 @@
   import NotificationSystem from "../lib/components/NotificationSystem.svelte";
 
   const isTauri = typeof window !== "undefined" && window.__TAURI_INTERNALS__ !== undefined;
-  let APP_VERSION = $state("1.1.10");
+  let APP_VERSION = $state("1.1.11");
 
   // Global State
   let config = $state({
@@ -238,15 +238,26 @@
   // Settings view state
   let showConfig = $state(false);
 
-  // Customization/Theme settings state
-  let themeSettings = $state({
-    theme: "grayscale-dark",
-    font: "monospace",
-    size: "medium",
-    cardStyle: "neumorphic",
-    bgImage: "",
-    blurIntensity: 12
-  });
+  function loadInitialThemeSettings() {
+    if (typeof window !== "undefined") {
+      const savedUser = localStorage.getItem("destino_current_user") || "";
+      const themeKey = savedUser ? `destino_theme_settings_${savedUser}` : "destino_theme_settings";
+      const localTheme = localStorage.getItem(themeKey);
+      if (localTheme) {
+        try { return JSON.parse(localTheme); } catch(e) {}
+      }
+    }
+    return {
+      theme: "grayscale-dark",
+      font: "monospace",
+      size: "medium",
+      cardStyle: "neumorphic",
+      bgImage: "",
+      blurIntensity: 12
+    };
+  }
+
+  let themeSettings = $state(loadInitialThemeSettings());
   let showThemeModal = $state(false);
 
   // Global Drag & Drop background image state
@@ -361,16 +372,8 @@
   let projectToLinkDoc = $state(null);
 
   onMount(async () => {
-    // Load theme settings from localStorage
-    const themeKey = currentUser ? `destino_theme_settings_${currentUser}` : "destino_theme_settings";
-    const localTheme = localStorage.getItem(themeKey);
-    if (localTheme) {
-      try {
-        themeSettings = JSON.parse(localTheme);
-      } catch (e) {
-        console.error("Error parsing theme settings", e);
-      }
-    }
+    // Theme settings are now loaded synchronously during state initialization.
+    // We only need to check Tauri window configurations.
 
     if (isTauri) {
       try {

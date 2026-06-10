@@ -1,11 +1,11 @@
 {
-  "version": "1.1.10",
-  "notes": "v1.1.10: Fix: Arreglo de cartas que desaparecían al moverlas y mensaje de actualizador",
-  "pub_date": "2026-06-10T17:29:47Z",
+  "version": "1.1.11",
+  "notes": "v1.1.11: Fix: Arreglo de persistencia del fondo de pantalla y configuraciones de tema al reiniciar o actualizar",
+  "pub_date": "2026-06-10T17:41:04Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajkxM2ovdDNrRWx3YzFRb1RuM0tKVno2UGNpZTBpcGdneUJwbksvbmxMbnA4ek8rZ1RXcW9WeERMTWxXZEJ0RXg0OGQzOVhwbVFIUEM0WER3a1dhSVFNPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTEyNTg3CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTBfeDY0LXNldHVwLmV4ZQozMnlJd3cweWkrUHBIZVNhT3lmb0I5UXoxUlVESEp6RnAzOXFNRjBMQ3o0ZU8zVzhyaStOS1MwU1JnWmoyVWJ5eldBZUJvWGw0M3BPMFFSVWdmV1dEQT09Cg==",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.10/DestinyKanban_1.1.10_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajFiVERGNUxody9pL0pIODEyRnVQTzFqazZtemxJREtVbVlBNFVpb2IrNjNwUllUZ3lTU1J2OHg0RFg5Q3Z5Nll4UjRMNkZyNXpvdXR3Z0w3dlJUR1FZPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTEzMjY0CWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTFfeDY0LXNldHVwLmV4ZQpZM3k3aUg2N21lNnpxdzVoQlJ2cW1qUGJQczRUb2N1NjY5eFhDWkRXYUJEbjZBRWVnM1Y3cjZ4YnliUmVsMmxyVFVWSWhrL2NJZW5DTEJETk9OL0xEUT09Cg==",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.11/DestinyKanban_1.1.11_x64-setup.exe"
     }
   }
 }
