@@ -144,7 +144,7 @@
           <span class="admin-badge">PANEL</span>
           <h2>CONTROL DE ACCESO Y PERMISOS</h2>
         </div>
-        <button class="btn-text" onclick={() => show = false}>[CERRAR]</button>
+        <button class="btn-text" onclick={() => show = false}><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
 
       <div class="modal-body">
@@ -239,27 +239,6 @@
             {#if addingUserMsg}
               <div class="adding-msg" style="font-size: 0.7rem; color: #fab387; margin-top: 5px;">{addingUserMsg}</div>
             {/if}
-          </div>
-
-          <div class="admin-section-card" style="margin-top: 15px;">
-            <form onsubmit={(e) => {
-              e.preventDefault();
-              const v = prompt("Ingresa el número de la nueva versión a publicar (ej. 1.0.1):", appVersion);
-              if (v && v !== latestAppVersion) {
-                updateSystemVersion(v);
-                alert("Actualización publicada a todos los usuarios.");
-              }
-            }}>
-              <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>
-                  <h3>VERSIÓN DE LA APLICACIÓN</h3>
-                  <p class="section-desc" style="font-size: 0.72rem; margin-bottom: 0;">Versión en código: <b>{appVersion}</b> | Versión en la Nube: <b>{latestAppVersion}</b></p>
-                </div>
-                <button type="submit" class="btn btn-primary" style="padding: 8px 15px; font-size: 0.78rem;">
-                  SUBIR ACTUALIZACIÓN
-                </button>
-              </div>
-            </form>
           </div>
 
           <!-- TABLA DE USUARIOS REGISTRADOS -->

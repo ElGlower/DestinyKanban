@@ -1,11 +1,11 @@
 {
-  "version": "1.1.15",
-  "notes": "v1.1.15: Soporte para asignar multiples usuarios a una sola tarea (modo colaborativo)",
-  "pub_date": "2026-06-10T20:30:33Z",
+  "version": "1.1.16",
+  "notes": "v1.1.16: \\",
+  "pub_date": "2026-07-03T18:35:53Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajBkcjMzaXltbmorUGRjbzJuOVlzaUY0RjdJd3hDK25JUFRqY0xLelBpVXBtZFhYSUJBcVN1eXl1U3JzU1U4VFRQeTc5NWpGcmt6aWdUZi9aUEJtRncwPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgxMTIzNDMzCWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTVfeDY0LXNldHVwLmV4ZQoxTzBpbVRpTERrVnplazRpSjVKWkV1elV6THE1RmdKdFpVTFBzVWh4MUNIQ2xCNFdpb2ZHNlY1TUt1SmJuSjVha3ZHZ3QzQ0tXeVR4MjNoeE1CRXZCZz09Cg==",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.15/DestinyKanban_1.1.15_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDaitZQ1ZMbm5qR2lTNVZpaE5hTlZ2VTFUWDVBVWFmOUpmWElWYWdXMHg1UFh1RXJXSms1dkJBNUVZbTBrNWNBNXl6OTQ5QkpLRTNHTjVnSVJTaFJJU2dFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgzMTAzNzUzCWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTZfeDY0LXNldHVwLmV4ZQo1dWJneXF1d3NMVENZMDRRTnJxMHo5OCtKa1VxWFVCL1E1bVJaWmdjblYzL0FHcERtNUJzdmh5akE1UkEyaXVwZmx4dGNrcTdweGRpbk5lRUlNNk9Ddz09Cg==",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.16/DestinyKanban_1.1.16_x64-setup.exe"
     }
   }
 }

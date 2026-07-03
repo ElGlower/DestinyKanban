@@ -2,6 +2,7 @@
   import FiltersBar from "./FiltersBar.svelte";
   import TaskCard from "./TaskCard.svelte";
   import TaskModal from "./TaskModal.svelte";
+  import ConfirmModal from "./ConfirmModal.svelte";
   import DiscordVoiceWidget from "./DiscordVoiceWidget.svelte";
   import { subscribeToBoardPresence } from "../firebase.js";
 
@@ -101,6 +102,14 @@
   let editingTask = $state(null);
   let showHeaderMenu = $state(false);
 
+  // Task delete confirmation state
+  let showConfirmDeleteTask = $state(false);
+  let taskToDeleteId = $state(null);
+
+  // Project name editing state
+  let isEditingName = $state(false);
+  let editNameValue = $state("");
+
   // Drag and Drop State
   let draggedTaskId = $state(null);
   let activeDragColumn = $state(null);
@@ -158,26 +167,28 @@
     tasksByColumn[column] = e.detail.items;
   }
 
+  let dndSaveTimeout;
+  
   async function handleDndFinalize(column, e) {
     tasksByColumn[column] = e.detail.items;
     
-    // Update status
-    e.detail.items.forEach(item => {
-      const idx = tasks.findIndex(t => t.id === item.id);
-      if (idx !== -1) {
-        tasks[idx].status = column;
+    const draggedId = e.detail.info?.id;
+    if (draggedId) {
+      const isTargetColumn = e.detail.items.some(item => item.id === draggedId);
+      if (isTargetColumn) {
+        const idx = tasks.findIndex(t => t.id === draggedId);
+        if (idx !== -1) {
+          tasks[idx].status = column;
+        }
       }
-    });
-
-    // Reorder tasks
-    const otherTasks = tasks.filter(t => t.status !== column);
-    const thisColumnTasks = e.detail.items.map(item => tasks.find(t => t.id === item.id)).filter(Boolean);
-    const hiddenTasksInThisColumn = tasks.filter(t => t.status === column && !e.detail.items.some(i => i.id === t.id));
+    }
     
-    tasks = [...otherTasks, ...hiddenTasksInThisColumn, ...thisColumnTasks];
-    
-    isDragging = false;
-    await saveTasks();
+    clearTimeout(dndSaveTimeout);
+    dndSaveTimeout = setTimeout(async () => {
+      tasks = [...tasks];
+      await saveTasks();
+      isDragging = false;
+    }, 50);
   }
 
   // Modal Actions
@@ -214,14 +225,45 @@
     await saveTasks();
   }
 
-  async function deleteTask(taskId) {
-    if (confirm("¿Estás seguro de que deseas eliminar esta tarea?")) {
-      tasks = tasks.filter(t => t.id !== taskId);
-      await saveTasks();
-      if (showModal && editingTask?.id === taskId) {
-        showModal = false;
-        editingTask = null;
-      }
+  function deleteTask(taskId) {
+    taskToDeleteId = taskId;
+    showConfirmDeleteTask = true;
+  }
+
+  async function handleDeleteTaskConfirm() {
+    if (!taskToDeleteId) return;
+    tasks = tasks.filter(t => t.id !== taskToDeleteId);
+    await saveTasks();
+    if (showModal && editingTask?.id === taskToDeleteId) {
+      showModal = false;
+      editingTask = null;
+    }
+    taskToDeleteId = null;
+  }
+
+  function startEditingName() {
+    editNameValue = project.name;
+    isEditingName = true;
+  }
+
+  async function saveProjectName() {
+    if (!isEditingName) return;
+    isEditingName = false;
+    const trimmed = editNameValue.trim();
+    if (trimmed && trimmed !== project.name) {
+      const updated = {
+        ...project,
+        name: trimmed
+      };
+      await onUpdateProject(updated);
+    }
+  }
+
+  function handleNameKeyDown(e) {
+    if (e.key === "Enter") {
+      saveProjectName();
+    } else if (e.key === "Escape") {
+      isEditingName = false;
     }
   }
 
@@ -230,6 +272,53 @@
     filterRole = "All";
     filterPriority = "All";
     searchQuery = "";
+  }
+
+  // Quick Assign
+  async function handleAssignMe(taskId) {
+    tasks = tasks.map(t => {
+      if (t.id === taskId) {
+        return { ...t, assignedUser: currentUser };
+      }
+      return t;
+    });
+    await saveTasks();
+  }
+
+  // Cycle user assignment quickly
+  async function handleCycleUser(taskId) {
+    const tIdx = tasks.findIndex(t => t.id === taskId);
+    if (tIdx === -1) return;
+    
+    let currentAssigned = "";
+    if (tasks[tIdx].assignedUsers && tasks[tIdx].assignedUsers.length > 0) {
+      currentAssigned = tasks[tIdx].assignedUsers[0];
+    } else if (tasks[tIdx].assignedUser) {
+      currentAssigned = tasks[tIdx].assignedUser;
+    }
+    
+    // Recopilar usuarios del board + currentUser + systemUsers
+    const boardUsers = new Set();
+    tasks.forEach(t => {
+      if (t.assignedUsers) t.assignedUsers.forEach(u => boardUsers.add(u));
+      if (t.assignedUser) boardUsers.add(t.assignedUser);
+    });
+    if (currentUser) boardUsers.add(currentUser);
+    systemUsers.forEach(u => boardUsers.add(u));
+    
+    const available = ["", ...Array.from(boardUsers)];
+    let currentIdx = available.indexOf(currentAssigned);
+    if (currentIdx === -1) currentIdx = 0;
+    
+    let nextIdx = currentIdx + 1;
+    if (nextIdx >= available.length) nextIdx = 0;
+    
+    const nextUser = available[nextIdx];
+    tasks[tIdx].assignedUser = nextUser;
+    tasks[tIdx].assignedUsers = nextUser ? [nextUser] : [];
+    
+    tasks = [...tasks];
+    await saveTasks();
   }
 
   // Google Docs handler
@@ -251,7 +340,28 @@
       </button>
       <div class="project-info">
         <span class="project-category">{project.category === 'propio' ? 'Tablero Personal' : 'Tablero de Equipo'}</span>
-        <h1 class="project-title" title={project.name}>{project.name}</h1>
+        {#if isEditingName}
+          <input 
+            type="text" 
+            bind:value={editNameValue} 
+            onkeydown={handleNameKeyDown} 
+            onblur={saveProjectName} 
+            class="project-title-input" 
+            autofocus 
+          />
+        {:else}
+          <!-- svelte-ignore a11y_click_events_have_key_events -->
+          <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+          <h1 class="project-title" onclick={startEditingName} title="Haga clic para editar el nombre del tablero">
+            {project.name}
+            <span class="edit-icon">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </span>
+          </h1>
+        {/if}
       </div>
     </div>
 
@@ -459,11 +569,11 @@
               </div>
             {/if}
 
-            <div class="column-body">
+            <div class="column-body" style="position: relative;">
               <div
                 class="dnd-zone-container"
-                style="min-height: 20px; flex-grow: 1;"
-                use:dndzone={{ items: tasksByColumn[column] || [], flipDurationMs: 300, dropTargetStyle: { outline: '2px dashed rgba(255,255,255,0.3)', borderRadius: '12px' } }}
+                style="min-height: calc(100vh - 350px); flex-grow: 1; display: flex; flex-direction: column; gap: 12px; height: 100%;"
+                use:dndzone={{ items: tasksByColumn[column] || [], flipDurationMs: 250, dropTargetStyle: { outline: '2px solid rgba(166, 227, 161, 0.5)', borderRadius: '12px', backgroundColor: 'rgba(166, 227, 161, 0.05)' } }}
                 onconsider={(e) => handleDndConsider(column, e)}
                 onfinalize={(e) => handleDndFinalize(column, e)}
               >
@@ -471,15 +581,18 @@
                   <div animate:flip={{ duration: 300 }}>
                     <TaskCard 
                       {task}
+                      {currentUser}
                       onEdit={openEditTaskModal}
                       onDelete={deleteTask}
+                      onAssignMe={handleAssignMe}
+                      onCycleUser={handleCycleUser}
                     />
                   </div>
                 {/each}
               </div>
 
               {#if (tasksByColumn[column] || []).length === 0}
-                <div class="column-empty">
+                <div class="column-empty" style="position: absolute; top: 30px; left: 12px; right: 12px; pointer-events: none; z-index: 0;">
                   <span>SIN TAREAS</span>
                 </div>
               {/if}
@@ -560,7 +673,7 @@
               ABRIR FUERA &nearr;
             </a>
             <button class="btn btn-mini btn-close-panel" onclick={() => showEmbeddedDoc = false} title="Ocultar panel">
-              [X]
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
             </button>
           </div>
         </div>
@@ -585,6 +698,14 @@
     {currentUser}
     onSubmit={handleSubmitTask}
     onDelete={deleteTask}
+  />
+
+  <ConfirmModal 
+    bind:show={showConfirmDeleteTask}
+    title="ELIMINAR TAREA"
+    message="¿Estás seguro de que deseas eliminar esta tarea? Esta acción no se puede deshacer."
+    confirmText="ELIMINAR TAREA"
+    onConfirm={handleDeleteTaskConfirm}
   />
 </div>
 
@@ -666,6 +787,51 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 280px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease;
+  }
+
+  .project-title:hover {
+    color: #ffffff;
+  }
+
+  .project-title .edit-icon {
+    opacity: 0;
+    color: #888;
+    transition: opacity 0.2s ease, color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .project-title:hover .edit-icon {
+    opacity: 1;
+  }
+
+  .project-title .edit-icon:hover {
+    color: #fff;
+  }
+
+  .project-title-input {
+    font-family: var(--title-font-family, 'Outfit', sans-serif);
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid #444;
+    border-radius: 6px;
+    padding: 2px 8px;
+    width: 100%;
+    max-width: 260px;
+    outline: none;
+    box-shadow: inset 2px 2px 5px rgba(0,0,0,0.5);
+  }
+
+  .project-title-input:focus {
+    border-color: #666;
   }
 
   /* Google Doc buttons */

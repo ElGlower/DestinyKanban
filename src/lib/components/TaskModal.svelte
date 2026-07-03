@@ -16,7 +16,8 @@
   let formPhase = $state("");
   let formPriority = $state("");
   let formAssignedTo = $state(""); // Role
-  let formAssignedUser = $state(""); // Actual user
+  let formAssignedUsers = $state([]); // Actual users
+  let tempUser = $state(""); // For the input field
   let formDescription = $state("");
   let formStartDate = $state("");
   let formDueDate = $state("");
@@ -30,7 +31,7 @@
         formPhase = editingTask.phase;
         formPriority = editingTask.priority;
         formAssignedTo = editingTask.assignedTo;
-        formAssignedUser = editingTask.assignedUser || "";
+        formAssignedUsers = editingTask.assignedUsers || (editingTask.assignedUser ? [editingTask.assignedUser] : []);
         formDescription = editingTask.description || "";
         formStartDate = editingTask.startDate || "";
         formDueDate = editingTask.dueDate || "";
@@ -40,7 +41,7 @@
         formPhase = config.phases[0] || "Pre-prod";
         formPriority = config.priorities[1] || "Media";
         formAssignedTo = config.roles[0] || "Desarrollador";
-        formAssignedUser = "";
+        formAssignedUsers = [];
         formDescription = "";
         formStartDate = "";
         formDueDate = "";
@@ -48,9 +49,33 @@
     }
   });
 
+  function handleAddUser() {
+    const val = tempUser.trim();
+    if (val && !formAssignedUsers.includes(val)) {
+      formAssignedUsers = [...formAssignedUsers, val];
+    }
+    tempUser = "";
+  }
+
+  function handleRemoveUser(user) {
+    formAssignedUsers = formAssignedUsers.filter(u => u !== user);
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === 'Enter' && tempUser.trim()) {
+      e.preventDefault();
+      handleAddUser();
+    }
+  }
+
   function handleSubmit(e) {
     if (e) e.preventDefault();
     if (!formTitle.trim()) return;
+    
+    // Add pending user if exists
+    if (tempUser.trim()) {
+      handleAddUser();
+    }
 
     onSubmit({
       title: formTitle.trim(),
@@ -58,7 +83,8 @@
       phase: formPhase,
       priority: formPriority,
       assignedTo: formAssignedTo,
-      assignedUser: formAssignedUser,
+      assignedUser: formAssignedUsers.length > 0 ? formAssignedUsers[0] : "", // fallback for older code if needed
+      assignedUsers: formAssignedUsers,
       description: formDescription,
       startDate: formStartDate,
       dueDate: formDueDate
@@ -75,7 +101,7 @@
     <div class="modal" onclick={(e) => e.stopPropagation()} role="presentation">
       <div class="modal-header">
         <h2>{editingTask ? 'EDITAR TAREA' : 'NUEVA TAREA'}</h2>
-        <button class="btn-text" onclick={() => showModal = false}>[CERRAR]</button>
+        <button class="btn-text" onclick={() => showModal = false}><svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
       </div>
 
       <form class="modal-form" onsubmit={handleSubmit}>
@@ -144,16 +170,28 @@
         </div>
 
         <div class="form-group">
-          <label for="task-user">USUARIO ASIGNADO</label>
+          <label for="task-user">USUARIOS ASIGNADOS</label>
+          <div class="users-pill-container">
+            {#each formAssignedUsers as user}
+              <div class="user-pill">
+                <img src={`https://mc-heads.net/avatar/${user}/16`} alt={user} class="user-pill-avatar" />
+                <span>{user}</span>
+                <button type="button" class="btn-remove-pill" onclick={() => handleRemoveUser(user)}>×</button>
+              </div>
+            {/each}
+          </div>
           <div style="display: flex; gap: 8px;">
-            <select id="task-user" bind:value={formAssignedUser} class="form-control" style="flex: 1;">
-              <option value="">(Sin asignar)</option>
+            <input type="text" id="task-user" list="system-users-list" bind:value={tempUser} onkeydown={handleKeyDown} placeholder="Escribe un usuario y presiona Enter..." class="form-control" style="flex: 1;" />
+            <datalist id="system-users-list">
               {#each systemUsers as user}
                 <option value={user}>@{user}</option>
               {/each}
-            </select>
-            {#if currentUser && currentUser !== formAssignedUser}
-              <button type="button" class="btn btn-secondary" onclick={() => formAssignedUser = currentUser}>
+            </datalist>
+            <button type="button" class="btn btn-secondary" onclick={handleAddUser}>
+              AGREGAR
+            </button>
+            {#if currentUser && !formAssignedUsers.includes(currentUser)}
+              <button type="button" class="btn btn-secondary" onclick={() => formAssignedUsers = [...formAssignedUsers, currentUser]}>
                 A MÍ
               </button>
             {/if}
