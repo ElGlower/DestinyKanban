@@ -1,11 +1,11 @@
 {
-  "version": "1.1.16",
-  "notes": "v1.1.16: \\",
-  "pub_date": "2026-07-03T18:35:53Z",
+  "version": "1.1.17",
+  "notes": "v1.1.17: Añadido sistema de logs y graficas de actividad en vivo para el administrador elglower.",
+  "pub_date": "2026-07-04T04:46:11Z",
   "platforms": {
     "windows-x86_64": {
-      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDaitZQ1ZMbm5qR2lTNVZpaE5hTlZ2VTFUWDVBVWFmOUpmWElWYWdXMHg1UFh1RXJXSms1dkJBNUVZbTBrNWNBNXl6OTQ5QkpLRTNHTjVnSVJTaFJJU2dFPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgzMTAzNzUzCWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTZfeDY0LXNldHVwLmV4ZQo1dWJneXF1d3NMVENZMDRRTnJxMHo5OCtKa1VxWFVCL1E1bVJaWmdjblYzL0FHcERtNUJzdmh5akE1UkEyaXVwZmx4dGNrcTdweGRpbk5lRUlNNk9Ddz09Cg==",
-      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.16/DestinyKanban_1.1.16_x64-setup.exe"
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUSURyNktFWWZDajN0Ujd1cmtjMFgweXc4TExHeTJqOG10VnplY0hiMzVOcitFenFEbi9DQzAzb0h3NktmT1M1OFJNVWt2YnBJVm0wVlFVblovYW82KzhINVRVS2RNMEFBPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzgzMTQwMzcxCWZpbGU6RGVzdGlueUthbmJhbl8xLjEuMTdfeDY0LXNldHVwLmV4ZQprdWtibkhFTGxjOEtsNmFBSElmYmxuVkVwK3pFNDRKc2pxNllEZmRlVjRIRmd2ZXRlSzlHNDVtcXdUZUR5L3lWTGZXYnZOSWVLRyt6M1YrSFA5cWNCQT09Cg==",
+      "url": "https://github.com/ElGlower/DestinyKanban/releases/download/v1.1.17/DestinyKanban_1.1.17_x64-setup.exe"
     }
   }
 }

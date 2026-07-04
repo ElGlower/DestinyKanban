@@ -20,7 +20,8 @@
     subscribeToTasks,
     subscribeToSystemConfig,
     updateSystemVersion,
-    onAuthChange
+    onAuthChange,
+    logActivity
   } from "../lib/firebase.js";
   import { notify } from "../lib/stores.js";
   import { compressImage } from "../lib/utils.js";
@@ -35,7 +36,7 @@
   import NotificationSystem from "../lib/components/NotificationSystem.svelte";
 
   const isTauri = typeof window !== "undefined" && window.__TAURI_INTERNALS__ !== undefined;
-  let APP_VERSION = $state("1.1.16");
+  let APP_VERSION = $state("1.1.17");
 
   // Global State
   let config = $state({
@@ -554,6 +555,9 @@
         startProjectsSubscription(username);
         startSystemConfigSubscription();
         
+        // Log login event
+        logActivity(username, 'login', { view: 'selector' });
+        
         // Si el usuario es elglower (dueño/admin), sincronizar automáticamente la versión del sistema de la nube
         if (username.toLowerCase() === "elglower") {
           try {
@@ -573,6 +577,7 @@
 
   function handleLogout() {
     if (isCloudActive() && currentUser) {
+      logActivity(currentUser, 'logout', {});
       clearPresence(currentUser);
       stopPresenceHeartbeat();
     }
@@ -643,6 +648,8 @@
         }
       }
       currentView = "board";
+      // Log board entry
+      logActivity(currentUser, 'enter_board', { projectId: project.id, projectName: project.name });
     } catch (e) {
       errorMessage = `Error cargando tareas del proyecto ${project.name}: ` + e;
       console.error(e);
@@ -805,6 +812,9 @@
   function handleBackToMenu() {
     // Unsubscribe from task listener when leaving a board
     if (_unsubTasks) { _unsubTasks(); _unsubTasks = null; }
+    if (currentProject && currentUser && isCloudActive()) {
+      logActivity(currentUser, 'leave_board', { projectId: currentProject.id, projectName: currentProject.name });
+    }
     currentProject = null;
     currentProjectTasks = [];
     currentView = "selector";
