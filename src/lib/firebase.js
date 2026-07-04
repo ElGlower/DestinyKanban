@@ -14,7 +14,11 @@ import {
   deleteDoc, 
   query, 
   where,
-  onSnapshot
+  orderBy,
+  limit,
+  onSnapshot,
+  addDoc,
+  serverTimestamp
 } from "firebase/firestore";
 
 let firebaseApp = null;
@@ -565,6 +569,62 @@ export async function updateSystemVersion(newVersion) {
     latestVersion: newVersion,
     updatedAt: new Date().toISOString()
   }, { merge: true });
+}
+
+// ── Activity Log ──────────────────────────────────────────────────────────
+
+/**
+ * Log a user activity event to Firestore.
+ * @param {string} username  - The user performing the action
+ * @param {string} action    - e.g. 'login', 'enter_board', 'create_task', 'edit_task', 'delete_task', 'move_task', 'logout'
+ * @param {Object} [meta]    - Optional extra context (projectId, projectName, taskTitle, fromCol, toCol, etc.)
+ */
+export async function logActivity(username, action, meta = {}) {
+  if (!isCloudActive() || !username) return;
+  try {
+    const colRef = collection(db, "activity_log");
+    await addDoc(colRef, {
+      username: username.toLowerCase(),
+      displayName: username,
+      action,
+      meta,
+      timestamp: serverTimestamp(),
+      timestampISO: new Date().toISOString()
+    });
+  } catch (e) {
+    // Silently ignore — activity logging should never break the app
+    console.warn("logActivity error:", e.message);
+  }
+}
+
+/**
+ * Subscribe to the activity log (last N entries, real-time).
+ * Admin-only function.
+ * @param {function(Array): void} callback
+ * @param {number} [maxEntries=100]
+ * @returns {function} Unsubscribe function
+ */
+export function subscribeToActivityLog(callback, maxEntries = 100) {
+  if (!isCloudActive()) {
+    callback([]);
+    return () => {};
+  }
+  const q = query(
+    collection(db, "activity_log"),
+    orderBy("timestampISO", "desc"),
+    limit(maxEntries)
+  );
+  return onSnapshot(
+    q,
+    (snapshot) => {
+      const entries = [];
+      snapshot.forEach((d) => entries.push({ id: d.id, ...d.data() }));
+      callback(entries);
+    },
+    (err) => {
+      console.error("subscribeToActivityLog error:", err);
+    }
+  );
 }
 
 // Initialize on import if config exists

@@ -4,7 +4,7 @@
   import TaskModal from "./TaskModal.svelte";
   import ConfirmModal from "./ConfirmModal.svelte";
   import DiscordVoiceWidget from "./DiscordVoiceWidget.svelte";
-  import { subscribeToBoardPresence } from "../firebase.js";
+  import { subscribeToBoardPresence, logActivity } from "../firebase.js";
 
   // Props
   let { 
@@ -173,11 +173,14 @@
     tasksByColumn[column] = e.detail.items;
     
     const draggedId = e.detail.info?.id;
+    let movedTask = null;
     if (draggedId) {
       const isTargetColumn = e.detail.items.some(item => item.id === draggedId);
       if (isTargetColumn) {
         const idx = tasks.findIndex(t => t.id === draggedId);
         if (idx !== -1) {
+          const fromCol = tasks[idx].status;
+          movedTask = { ...tasks[idx], fromCol };
           tasks[idx].status = column;
         }
       }
@@ -188,6 +191,17 @@
       tasks = [...tasks];
       await saveTasks();
       isDragging = false;
+      // Log move event if column actually changed
+      if (movedTask && movedTask.fromCol !== column) {
+        logActivity(currentUser, 'move_task', {
+          projectId: project.id,
+          projectName: project.name,
+          taskId: movedTask.id,
+          taskTitle: movedTask.title,
+          fromCol: movedTask.fromCol,
+          toCol: column
+        });
+      }
     }, 50);
   }
 
@@ -213,12 +227,25 @@
         }
         return t;
       });
+      logActivity(currentUser, 'edit_task', {
+        projectId: project.id,
+        projectName: project.name,
+        taskId: editingTask.id,
+        taskTitle: formData.title || editingTask.title
+      });
     } else {
       const newTask = {
         id: "task-" + Date.now(),
         ...formData
       };
       tasks = [...tasks, newTask];
+      logActivity(currentUser, 'create_task', {
+        projectId: project.id,
+        projectName: project.name,
+        taskId: newTask.id,
+        taskTitle: newTask.title,
+        status: newTask.status
+      });
     }
     
     editingTask = null;
@@ -232,8 +259,17 @@
 
   async function handleDeleteTaskConfirm() {
     if (!taskToDeleteId) return;
+    const taskToLog = tasks.find(t => t.id === taskToDeleteId);
     tasks = tasks.filter(t => t.id !== taskToDeleteId);
     await saveTasks();
+    if (taskToLog) {
+      logActivity(currentUser, 'delete_task', {
+        projectId: project.id,
+        projectName: project.name,
+        taskId: taskToLog.id,
+        taskTitle: taskToLog.title
+      });
+    }
     if (showModal && editingTask?.id === taskToDeleteId) {
       showModal = false;
       editingTask = null;
